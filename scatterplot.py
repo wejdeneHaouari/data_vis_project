@@ -87,7 +87,9 @@ def update_vis2(data, country):
     # get index where country = country
     index_country = data.index[data['country'] == country].tolist()[0]
     colors = ['#aaaaaa'] * len(data)
+    opacity = [0.5] * len(data)
     colors[index_country] = 'red'
+    opacity[index_country] = 1
     fig = make_subplots(rows=1, cols=5,
                         subplot_titles=("Stillbirth", "Neonatal", "Infant", "Under-five", "Between 5-14 "))
     # stillbirth
@@ -96,7 +98,7 @@ def update_vis2(data, country):
             text="stillbirth",
             y=data['stillbirth'],
             mode='markers',
-            marker=dict(color=colors),
+            marker=dict(color=colors, opacity=opacity),
             customdata=data['country'],
             hovertemplate=hover.vis2Hover()),
         row=1, col=1
@@ -108,7 +110,7 @@ def update_vis2(data, country):
         go.Scatter(text="Neonatal",
                    y=data['neonatal'],
                    mode='markers',
-                   marker=dict(color=colors),
+                   marker=dict(color=colors,opacity=opacity),
                    customdata=data['country'],
                    hovertemplate=hover.vis2Hover()
 
@@ -123,7 +125,7 @@ def update_vis2(data, country):
         go.Scatter(text="Infant",
                    y=data['infant'],
                    mode='markers',
-                   marker=dict(color=colors),
+                   marker=dict(color=colors, opacity=opacity),
                    customdata=data['country'],
                    hovertemplate=hover.vis2Hover()),
         row=1, col=3
@@ -136,7 +138,7 @@ def update_vis2(data, country):
         go.Scatter(text="Under five",
                    y=data['under-five'],
                    mode='markers',
-                   marker=dict(color=colors),
+                   marker=dict(color=colors, opacity=opacity),
                    customdata=data['country'],
                    hovertemplate=hover.vis2Hover()),
         row=1, col=4
@@ -148,7 +150,7 @@ def update_vis2(data, country):
         go.Scatter(text="Between 4 and 14",
                    y=data['children'],
                    mode='markers',
-                   marker=dict(color=colors),
+                   marker=dict(color=colors,opacity=opacity),
                    customdata=data['country'],
                    hovertemplate=hover.vis2Hover()),
         row=1, col=5
