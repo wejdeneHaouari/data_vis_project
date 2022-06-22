@@ -6,6 +6,8 @@ from dash import dcc
 from dash import html
 import plotly.express as px
 
+import data
+
 
 def no_clicks(style):
     '''
@@ -88,31 +90,14 @@ def map_marker_clicked(figure, curve, point, title, mode, theme,
     return title, mode, theme, style
 
 
-def info_details(figure, country):
-    # get mortality rate where customdata equal country for each curve (age group)
-    rates = []
-    ageGroup = []
-    for data in figure['data']:
-        for index, d in enumerate(data['customdata']):
-            if d == country:
-                ageGroup.append(data['text'])
-                rates.append(data['y'][index])
-
+def info_details(country):
+    dataPerCountry = data.getDataPerCountry(country)
+    rates = dataPerCountry.iloc[[0]].values.tolist()[0][2:]
+    ageGroup = list(dataPerCountry.columns)[2:]
     # order based on mortality rate
     zipped_lists = zip(rates, ageGroup)
     sorted_pairs = sorted(zipped_lists, reverse=True)
     tuples = zip(*sorted_pairs)
     rates, ageGroup = [list(tuple) for tuple in tuples]
-
-    # liList = [html.Li(ageGroup[index + 1] + ": " + str(item)) for (index, item) in enumerate(rates[1:])]
-    # liList.insert(0, html.Li(ageGroup[0] + ": " + str(rates[0]), style={'color': 'red'}))
-    # theme = [
-    #     html.P('Mortality Rate:'),
-    #     html.Ul(liList),
-    #
-    # ]
-    style = {'visibility': 'visible',
-             'border': '1px solid black',
-             'padding': '10px'}
 
     return country, ageGroup, rates

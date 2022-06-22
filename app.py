@@ -73,7 +73,7 @@ app.layout = html.Div(
                         html.Hr(),
                         dbc.Row([
                             dbc.Col(dash_components.generate_country_dropdown(data.getCountriesDataVis2()), width=3),
-                            dbc.Col(dash_components.generate_info_panel2(), width={"size": 3, "offset": 3})
+                            dbc.Col(dash_components.generate_info_panel2(), width={"size": 3, "offset": 1})
                         ]
                         ),
 
@@ -90,14 +90,51 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
-    [
-        Output('graph', 'figure'),
-     ],
-    [Input('country-select', 'value')]
-)
-def update_vis2(value):  # noqa : E501 pylint: disable=unused-argument too-many-arguments line-too-long
+@app.callback([Output('group1', 'children'),
+               Output('group2', 'children'),
+               Output('group3', 'children'),
+               Output('group4', 'children'),
+               Output('group5', 'children'),
+               Output('rate1', 'children'),
+               Output('rate2', 'children'),
+               Output('rate3', 'children'),
+               Output('rate4', 'children'),
+               Output('rate5', 'children'),
+               Output('info-panel-vis2', 'style'),
+               Output('graph', 'figure'),
+               [Output('country-select', 'value')]],
+              [Input('graph', 'clickData'),
+               Input('country-select', 'value')])
+def callback_a(clicks_fig, value):
     ctx = dash.callback_context
+    triggered_id = ctx.triggered_id
+    # clique on the graph
+    if triggered_id == 'graph':
+        return graphClique()
+    if triggered_id == 'country-select':
+        return countrySelect(value)
+    else:
+        return None, None, None, None, None, None, None, None, None, None, {
+            'visibility': 'hidden'}, scatterplot.add_scatter_matrix(data.getDataVis2DataFrame()), [None]
+
+
+def graphClique():
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        return None, None, None, None, None, None, None, None, None, None, {
+            'visibility': 'hidden'}, scatterplot.add_scatter_matrix(data.getDataVis2DataFrame()), [None]
+    if ctx.triggered[0]['prop_id'].split('.')[0] == 'graph':
+        country = ctx.triggered[0]['value']['points'][0]['customdata']
+        country, ageGroup, rates = callback.info_details(country)
+        rate1, rate2, rate3, rate4, rate5 = rates
+        group1, group2, group3, group4, group5 = ageGroup
+        return group1, group2, group3, group4, group5, rate1, rate2, rate3, rate4, rate5, {
+            'visibility': 'visible'}, scatterplot.update_vis2(data.getDataVis2DataFrame(), country), [country]
+    return None, None, None, None, None, None, None, None, None, None, {
+        'visibility': 'hidden'}, scatterplot.add_scatter_matrix(data.getDataVis2DataFrame()), [None]
+
+
+def countrySelect(value):
     if value:
         dataPerCountry = data.getDataPerCountry(value)
         rates = dataPerCountry.iloc[[0]].values.tolist()[0][2:]
@@ -109,35 +146,13 @@ def update_vis2(value):  # noqa : E501 pylint: disable=unused-argument too-many-
         rates, ageGroup = [list(tuple) for tuple in tuples]
         rate1, rate2, rate3, rate4, rate5 = rates
         group1, group2, group3, group4, group5 = ageGroup
-        return [scatterplot.update_vis2(data.getDataVis2DataFrame(), value)]
-    return [scatterplot.add_scatter_matrix(data.getDataVis2DataFrame())]
+        return group1, group2, group3, group4, group5, rate1, rate2, rate3, rate4, rate5, {
+            'visibility': 'visible'}, scatterplot.update_vis2(data.getDataVis2DataFrame(),
+                                                              value), [value]
+    return None, None, None, None, None, None, None, None, None, None, {
+        'visibility': 'hidden'}, scatterplot.add_scatter_matrix(
+        data.getDataVis2DataFrame()), [None]
 
-
-# @app.callback([Output('group1', 'children'),
-#                Output('group2', 'children'),
-#                Output('group3', 'children'),
-#                Output('group4', 'children'),
-#                Output('group5', 'children'),
-#                Output('rate1', 'children'),
-#                Output('rate2', 'children'),
-#                Output('rate3', 'children'),
-#                Output('rate4', 'children'),
-#                Output('rate5', 'children'),
-#                Output('info-panel-vis2', 'style')],
-#               [Input('graph', 'clickData')],
-#               [State('graph', 'figure')])
-# def callback_a(clicks_fig, figure):
-#     ctx = dash.callback_context
-#     if not ctx.triggered:
-#         return None, None, None, None, None, None, None, None, None, None, {'visibility': 'hidden'}
-#     if ctx.triggered[0]['prop_id'].split('.')[0] == 'graph':
-#         country = ctx.triggered[0]['value']['points'][0]['customdata']
-#         country, ageGroup, rates = callback.info_details(figure, country)
-#         rate1, rate2, rate3, rate4, rate5 = rates
-#         group1, group2, group3, group4, group5 = ageGroup
-#         return group1, group2, group3, group4, group5, rate1, rate2, rate3, rate4, rate5, {'visibility': 'visible'}
-#     return None, None, None, None, None, None, None, None, None, None, {'visibility': 'hidden'}
-#
 
 # Run the server
 if __name__ == "__main__":

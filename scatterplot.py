@@ -77,7 +77,7 @@ def add_scatter_matrix(data):
     fig.update_layout(height=600,
                       width=1100,
                       title_text="Mortality Rate per group age",
-                      showlegend=False,
+                      showlegend=False
                       )
 
     return fig
@@ -159,7 +159,7 @@ def update_vis2(data, country):
     fig.update_layout(height=600,
                       width=1100,
                       title_text="Mortality Rate per group age",
-                      showlegend=False,
+                      showlegend=False
                       )
 
     return fig
