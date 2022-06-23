@@ -15,6 +15,7 @@ import dash_bootstrap_components as dbc
 import scatterplot
 import heatmapfig
 import Paragraphs
+import clustered_barchart
 
 external_stylesheets = [dbc.themes.BOOTSTRAP]
 
@@ -40,6 +41,10 @@ scatter = heatmapfig.initScatter(countries, "Rotavirus", VaccList)
 comments4a = Paragraphs.descriptionViz4a()
 explain4a = Paragraphs.ExplainViz4a()
 init4b = Paragraphs.InitViz4b()
+
+barChartData = data.getDataBarChart()
+
+barchart = clustered_barchart.draw_barchart(barChartData)
 
 
 def description_card():
@@ -97,6 +102,23 @@ app.layout = html.Div(
                         dbc.Row(
                             [dbc.Col(dash_components.generate_vis2(data.getDataVis2DataFrame()))]
                         ),
+                        html.Br(),
+                        html.Br(),
+                        dbc.Row([
+                            dcc.Graph(
+                                figure=barchart,
+                                style={'width': '90vh', 'height': '90vh'},
+                                config=dict(
+                                    scrollZoom=False,
+                                    showTips=False,
+                                    showAxisDragHandles=False,
+                                    doubleClick=False,
+                                    displayModeBar=False
+                                ),
+                                className='graph',
+                                id='line-chart'
+                            )
+                        ]),
                         html.Br(),
                         html.B("Vaccinations"),
                         html.Hr(),

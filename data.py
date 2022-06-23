@@ -4,6 +4,7 @@ import datetime
 from datetime import datetime as dt
 import pathlib
 from numpy import nan
+
 # Path
 BASE_PATH = pathlib.Path(__file__).parent.resolve()
 DATA_PATH = BASE_PATH.joinpath("data").resolve()
@@ -11,7 +12,7 @@ DATA_PATH = BASE_PATH.joinpath("data").resolve()
 dataframeVis2 = pd.read_excel(DATA_PATH.joinpath("UNICEF_Data.xlsx"), sheet_name="dataViz2")
 # sort by country alphabetically
 dataframeVis2 = dataframeVis2.sort_values('country').reset_index()
-
+dataBarChart = pd.read_csv('./data/Regions.csv')
 
 
 def getDataVis2DataFrame():
@@ -54,3 +55,7 @@ def Vaccines(df):
         vaccines.append(dict(label=label[i], value=value[i]))
 
     return vaccines
+
+
+def getDataBarChart():
+    return dataBarChart
