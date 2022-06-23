@@ -3,6 +3,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, ClientsideFunction, State
 
+import json
 import numpy as np
 import pandas as pd
 import datetime
@@ -16,6 +17,10 @@ import scatterplot
 import heatmapfig
 import Paragraphs
 import clustered_barchart
+import preprocess
+import choropleth_map
+import bar_charts
+
 
 external_stylesheets = [dbc.themes.BOOTSTRAP]
 
@@ -29,6 +34,10 @@ app.title = "The State of the World’s Children- UNICEF"
 
 server = app.server
 app.config.suppress_callback_exceptions = True
+
+mapdata = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
+VarList = preprocess.variables(mapdata)
+my_data=pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
 
 data_path = "data/UNICEF_Data_4.xlsx"
 regional = data.getData(data_path, "Regions")
@@ -65,6 +74,7 @@ def description_card():
     )
 
 
+
 app.layout = html.Div(
     id="app-container",
     style={'backgroundColor': 'white', 'margin': 0},
@@ -92,6 +102,43 @@ app.layout = html.Div(
                 html.Div(
                     id="vis2layout",
                     children=[
+                        html.Br(),
+                        html.B("Child Mortality World Wide"),
+                        html.Hr(),
+                        html.Br(),
+                        dbc.Row([
+                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]), width=3)]),
+                            #dbc.Row([dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"])],
+                            #style={'width': '48%', 'display': 'inline-block'}),
+                            html.Hr(),
+                            dbc.Row([dcc.Graph(id='display-selected-values')]),
+                            dbc.Row([
+                                    dbc.Col(dcc.Graph(
+                                                    id='bar-chart',
+                                                    className='graph',
+                                                    figure=bar_charts.get_empty_figure('barchart'), 
+                                                    style={'width': '60vh', 'height': '30vh'},
+                                                    config=dict(
+                                                        scrollZoom=False,
+                                                        showTips=False,
+                                                        showAxisDragHandles=False,
+                                                        doubleClick=False,
+                                                        displayModeBar=False
+                                                    ))),
+                                    dbc.Col( dcc.Graph(
+                                                    id='b2b-chart',
+                                                    className='graph',
+                                                    figure=bar_charts.get_empty_figure('b2bchart'), #draw_barchart(top_bottom_country, column, clickedCountry)
+                                                    style={'width': '60vh', 'height': '30vh'},
+                                                    config=dict(
+                                                        scrollZoom=False,
+                                                        showTips=False,
+                                                        showAxisDragHandles=False,
+                                                        doubleClick=False,
+                                                        displayModeBar=False
+                                                    )))
+                                    ]),
+                        html.Br(),
                         html.B("Trends"),
                         html.Hr(),
                         html.Br(),
@@ -109,7 +156,7 @@ app.layout = html.Div(
                         dbc.Row([
                             dcc.Graph(
                                 figure=barchart,
-                                style={'width': '90vh', 'height': '90vh'},
+                                style={'width': '60vh', 'height': '60vh'},
                                 config=dict(
                                     scrollZoom=False,
                                     showTips=False,
@@ -159,6 +206,48 @@ app.layout = html.Div(
         ),
     ],
 )
+
+
+
+
+
+
+@app.callback(Output('display-selected-values', 'figure'),
+              [Input('map-dropdown', 'value')])
+def update_output(value):
+    data = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
+    df = preprocess.to_float(data, value)
+    fig = choropleth_map.get_map(df, value, VarList)
+    return fig
+
+
+
+@app.callback(
+    [Output('bar-chart', 'figure'),Output('b2b-chart','figure')],
+    [Input('display-selected-values', 'clickData'),Input('map-dropdown', 'value')] 
+)
+def map_clicked(clickData,value):
+    
+    
+    if clickData is None:
+        b2b_figure=bar_charts.get_empty_figure('b2bchart')
+        figure = bar_charts.get_empty_figure('barchart')
+        return figure,b2b_figure
+    
+    columnb=value
+    country=clickData['points'][0]['hovertext']
+    
+    sorted_df, top_bottom_data=preprocess.top_bottom(my_data, columnb)
+    top_bottom_country, clickedCountry=bar_charts.insert_country(sorted_df, top_bottom_data, country) 
+
+    figure=bar_charts.draw_barchart(top_bottom_country, columnb, clickedCountry)
+    
+    b2b_figure=bar_charts.get_empty_figure('b2bchart')
+    if columnb=='Under-five_mortality_rate_2019,both':
+        b2b_figure=bar_charts.draw_b2bchart(top_bottom_country, clickedCountry)
+    
+    return figure,b2b_figure
+  
 
 
 @app.callback([Output('scatter', 'figure')],

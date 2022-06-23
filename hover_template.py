@@ -2,6 +2,10 @@
     Provides the templates for the tooltips.
 '''
 
+def get_map_template():
+    template = '<b>%{customdata}</b>'
+    return template
+
 
 def map_base_hover_template():
     '''
