@@ -14,7 +14,7 @@ def draw_barchart(data):
 
     # print(data.columns)
 
-    colors = ['#b8664f', "#a80000", '#630000']  # ['#202020','#4f4f4f','#9e9e9e']  "
+    colors = ['#630000', "#a80000",'#b8664f']  # ['#202020','#4f4f4f','#9e9e9e']  "
     years = ['2019', '2000', '1990']
     for color, year in zip(colors, years):
         fig.add_trace(go.Bar(name=year, x=data[year], y=data['Region'], orientation='h', marker_color=color,
