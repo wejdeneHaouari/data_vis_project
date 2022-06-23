@@ -13,8 +13,11 @@ import data
 import callback
 import dash_bootstrap_components as dbc
 import scatterplot
+import heatmapfig
+import Paragraphs
 
 external_stylesheets = [dbc.themes.BOOTSTRAP]
+
 app = dash.Dash(
     __name__,
     external_stylesheets=external_stylesheets,
@@ -24,6 +27,19 @@ app.title = "The State of the World’s Children- UNICEF"
 
 server = app.server
 app.config.suppress_callback_exceptions = True
+
+data_path = "data/UNICEF_Data_4.xlsx"
+regional = data.getData(data_path, "Regions")
+
+countries = data.getData(data_path, "Countries")
+VaccList = data.Vaccines(regional)
+
+heatmap = heatmapfig.getHeatmap(regional)
+scatter = heatmapfig.initScatter(countries, "Rotavirus", VaccList)
+
+comments4a = Paragraphs.descriptionViz4a()
+explain4a = Paragraphs.ExplainViz4a()
+init4b = Paragraphs.InitViz4b()
 
 
 def description_card():
@@ -71,6 +87,7 @@ app.layout = html.Div(
                     children=[
                         html.B("Trends"),
                         html.Hr(),
+                        html.Br(),
                         dbc.Row([
                             dbc.Col(dash_components.generate_country_dropdown(data.getCountriesDataVis2()), width=3),
                             dbc.Col(dash_components.generate_info_panel2(), width={"size": 3, "offset": 1})
@@ -78,16 +95,54 @@ app.layout = html.Div(
                         ),
 
                         dbc.Row(
-                            [dbc.Col(dash_components.generate_vis2(data.getDataVis2DataFrame())),
-
+                            [dbc.Col(dash_components.generate_vis2(data.getDataVis2DataFrame()))]
+                        ),
+                        html.Br(),
+                        html.B("Vaccinations"),
+                        html.Hr(),
+                        html.Br(),
+                        dbc.Row(
+                            [dbc.Col(dcc.Graph(figure=heatmap, id='heatmap',
+                                               config=dict(
+                                                   showTips=False,
+                                                   showAxisDragHandles=False,
+                                                   displayModeBar=False)),
+                                     ),
+                             dbc.Col(explain4a)
                              ]
-                        )
+                        ),
+                        dbc.Row(comments4a),
+                        html.Br(),
+                        html.Br(),
+                        dbc.Row(
+                            [dbc.Col(dcc.Dropdown(id="dropdown",
+                                                  options=VaccList,
+                                                  value=VaccList[0]["value"]), width=3),
+                             ]
+                        ),
+                        html.Br(),
+                        dbc.Row([dbc.Col(dcc.Graph(figure=scatter, id='scatter',
+                                                   config=dict(
+                                                       showTips=False,
+                                                       showAxisDragHandles=False,
+                                                       displayModeBar=False))),
+                                 dbc.Col(explain4a)]
+
+                                )
                     ],
                 )
             ],
         ),
     ],
 )
+
+
+@app.callback([Output('scatter', 'figure')],
+              [Input('dropdown', 'value')])
+def display(DD):  # noqa : E501 pylint: disable=unused-argument too-many-arguments line-too-long
+    scatter = heatmapfig.initScatter(countries, DD, VaccList)
+
+    return [scatter]
 
 
 @app.callback([Output('group1', 'children'),

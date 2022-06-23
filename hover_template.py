@@ -45,3 +45,11 @@ def vis2Hover():
         labelStyle + '          Country:' + closeStyle + valueStyle + ' : %{customdata}' + closeStyle   + '<extra></extra>'
     ])
     return hovertemp
+
+def get_heatmap_template():
+    template= '%{x} vaccination rate in<br>%{y}: %{customdata} <extra></extra>'
+    return template
+
+def get_scatter_template():
+    template= '<b>%{customdata}</b><br>vaccination rate: %{y:.0f} %<br>mortality rate: %{x:.0f} %'
+    return template
