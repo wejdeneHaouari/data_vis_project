@@ -19,7 +19,7 @@ def descriptionViz4a():
 def ExplainViz4a():
     explanation = [
         html.P(children=[
-            "We see that there are two types of vaccines that were far less often administered in 2019 than others on a global scale, namely the vaccines against the rotavirus and streptococcus pneumoniae. ",
+            "We see that there are two types of vaccinations that were far less often to be found than others on a global scale, namely the vaccines against the rotavirus and streptococcus pneumoniae. ",
             "Also, for North America there is no data available for tuberculosis vaccinations which is surprising. ",
             "As one would expect, less children are fully vaccinated against the measles (two doses) than have had just their first dose."],
                style={"font-size": "16px"})
