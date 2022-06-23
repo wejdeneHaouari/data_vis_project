@@ -24,6 +24,7 @@ app = dash.Dash(
     external_stylesheets=external_stylesheets,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
 )
+
 app.title = "The State of the World’s Children- UNICEF"
 
 server = app.server
@@ -66,7 +67,7 @@ def description_card():
 
 app.layout = html.Div(
     id="app-container",
-    style={'backgroundColor':'white', 'margin':0},
+    style={'backgroundColor': 'white', 'margin': 0},
     children=[
         # Banner
         html.Div(
