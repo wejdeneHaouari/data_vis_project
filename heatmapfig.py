@@ -1,6 +1,6 @@
 import pandas as pd
 import plotly.express as px
-import hover_templates
+import hover_template
 
 def getHeatmap(data):
     fig = px.imshow(data, labels=dict(color="Vaccination rate (%)"), x=data.columns, y=data.index, zmin=0, zmax=100)
@@ -30,7 +30,7 @@ def getHeatmap(data):
     #get hovertemplate to display "no Data available" for North America+Tuberculosis
     custom = fig["data"][0]["z"].tolist()
     custom = [["No data available" if x==-5 else str(x)+" %" for x in a] for a in custom]
-    fig.update_traces(hovertemplate= hover_templates.get_heatmap_template(), customdata=custom)
+    fig.update_traces(hovertemplate= hover_template.get_heatmap_template(), customdata=custom)
     
     '''
     #Label for colorbar inside colorbar
@@ -79,7 +79,7 @@ def initScatter(data,Vacc,VaccList):
                      title_standoff=0,
                      gridcolor="darkgrey",
                      dtick=10)
-    fig.update_traces(hovertemplate= hover_templates.get_scatter_template(), customdata=data["Countries"])
+    fig.update_traces(hovertemplate= hover_template.get_scatter_template(), customdata=data["Countries"])
     fig.update_traces(marker_color="#630000", marker_size=10, marker_opacity=0.7)
 
     fig=AnnotateVaccineName(fig,Vacc,VaccList)
