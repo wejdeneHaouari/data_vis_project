@@ -57,7 +57,7 @@ def initScatter(data,Vacc,VaccList):
     data=data.reset_index()
     
     fig=px.scatter(data, x="Mortality rate among children aged 5–14 years, 2019", y=Vacc)
-    fig.update_layout(height=400, width = 620, margin=dict(l=20), plot_bgcolor="lightgrey", coloraxis_colorbar=None,  coloraxis_showscale=False)
+    fig.update_layout(height=370, width = 620, margin=dict(l=20, b=10), plot_bgcolor="lightgrey", coloraxis_colorbar=None,  coloraxis_showscale=False)
     fig.update_yaxes(title_text="Vaccination rate (%)",
                      range=[0.0,100.0],
                      dtick=25,
