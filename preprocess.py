@@ -30,7 +30,7 @@ def variables(my_df):
     value = list(my_df.columns)
     label = pd.Series(value)
     # print(label)
-    label = label.replace({"Under-five_mortality_rate_2019,both": "Mortality rate (under five)",
+    label = label.replace({"Under-five mortality rate 2019,both": "Mortality rate (under five)",
                             "Neonatal mortality rate 2019": "Mortality rate (Neonatal)",
                             "Infant mortality rate 2019": "Mortality rate (Infant)",
                             "Mortality rate among children aged 5–14 years, 2019": "Mortality rate (5-14 years)",
