@@ -108,7 +108,7 @@ app.layout = html.Div(
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
-                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]), width=3)]),
+                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]), width=6)]),
                             #dbc.Row([dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"])],
                             #style={'width': '48%', 'display': 'inline-block'}),
                             html.Br(),
