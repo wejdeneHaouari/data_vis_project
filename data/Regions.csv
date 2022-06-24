@@ -1,11 +1,11 @@
-Region,1990,2000,2019,
-East Asia and Pacific,57,39,14,
-Eastern Europe and Central Asia,46,35,11,
-Western Europe,11,6,4,
-Latin America and Caribbean,55,33,16,
-Middle East and North Africa,65,42,22,
-North America,11,8,6,
-South Asia,130,93,40,
-Eastern and Southern Africa,162,133,55,
-West and Central Africa,196,168,95,
-World,93,76,38,
+Region,1990,2000,2019
+World,93,76,38
+Eastern and Southern Africa,162,133,55
+West and Central Africa,196,168,95
+Middle East and North Africa,65,42,22
+Latin America and Caribbean,55,33,16
+North America,11,8,6
+Western Europe,11,6,4
+Eastern Europe and Central Asia,46,35,11
+South Asia,130,93,40
+East Asia and Pacific,57,39,14
