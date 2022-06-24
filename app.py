@@ -83,7 +83,7 @@ app.layout = html.Div(
         html.Div(
             id="banner",
             className="banner",
-            children=[html.Img(src=app.get_asset_url("polymtl.png"))],
+            children=[html.Img(src=app.get_asset_url("polymtl.png"), style={"height":"60px"})],
         ),
 
         html.Div(
