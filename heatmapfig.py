@@ -5,7 +5,7 @@ import hover_template
 def getHeatmap(data):
     fig = px.imshow(data, labels=dict(color="Vaccination rate (%)"), x=data.columns, y=data.index, zmin=0, zmax=100)
     fig.update_layout(dragmode=False, xaxis_nticks=len(data.columns))
-    fig.update_layout(height=420, width = 620, margin_r=10, margin_b=20)
+    fig.update_layout(height=420, width = 620, margin_r=10, margin_b=20, title="Vaccinations per region", title_x=0, title_y=1)
     fig.update_layout(xaxis_title=None, yaxis_title=None, margin_pad=4, margin_autoexpand=True, plot_bgcolor="white")
     fig.update_layout(coloraxis=dict(
         colorbar=dict(bgcolor="white",
@@ -57,7 +57,12 @@ def initScatter(data,Vacc,VaccList):
     data=data.reset_index()
     
     fig=px.scatter(data, x="Mortality rate among children aged 5–14 years, 2019", y=Vacc)
-    fig.update_layout(height=370, width = 620, margin=dict(l=20, b=10, r=30), plot_bgcolor="lightgrey", coloraxis_colorbar=None,  coloraxis_showscale=False)
+    fig.update_layout(height=370, width = 620,
+                      margin=dict(l=20, b=10, r=30),
+                      plot_bgcolor="lightgrey",
+                      coloraxis_colorbar=None, 
+                      coloraxis_showscale=False,
+                      title="Vaccination and children's mortality per country", title_x=0, title_y=1)
     fig.update_yaxes(title_text="Vaccination rate (%)",
                      range=[0.0,100.0],
                      dtick=25,
@@ -84,7 +89,6 @@ def initScatter(data,Vacc,VaccList):
 
     fig=AnnotateVaccineName(fig,Vacc,VaccList)
     
-    #print(fig)
     return fig
 
 
