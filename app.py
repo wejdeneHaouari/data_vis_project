@@ -219,14 +219,13 @@ def update_output(value):
     return fig
 
 
-
+#display bar charts when a country is clicked or drop down menu selection changed
 @app.callback(
     [Output('bar-chart', 'figure'),Output('b2b-chart','figure')],
     [Input('display-selected-values', 'clickData'),Input('map-dropdown', 'value')] 
 )
 def map_clicked(clickData,value):
-    
-    
+
     if clickData is None:
         b2b_figure=bar_charts.get_empty_figure('b2bchart')
         figure = bar_charts.get_empty_figure('barchart')
