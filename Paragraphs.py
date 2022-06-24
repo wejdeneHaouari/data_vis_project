@@ -4,9 +4,19 @@ from dash import dcc
 
 def descriptionViz4a():
     description = [html.P(children=[
-        "Left: Vaccination rates in global regions and the entire world for different vaccines. Right: Distribution of vaccination rate and mortality rate for the selected vaccine.",
+        "Vaccination rates in global regions and the entire world for different vaccines.",
         html.Br(),
         "¹) Combination of vaccines against Diphteria, Tetanus and Pertussis. ",
+        html.Br(),
+        "²) First dose of vaccine administered. ",
+        html.Br(),
+        "³) Vaccination at birth."],
+                          style={"font-size": "12px"})
+                   ]
+    return description
+def descriptionViz4b():
+    description = [html.P(children=[
+        "Distribution of vaccination rate and mortality rate for the selected vaccine for different countries.",
         html.Br(),
         "²) First dose of vaccine administered. ",
         html.Br(),
