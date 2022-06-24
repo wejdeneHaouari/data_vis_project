@@ -14,7 +14,7 @@ def get_empty_figure(chart_type):
         fig.add_annotation(text="No data to display. Click on a country in the map for more information",
                        showarrow=False)
     else:
-        fig.add_annotation(text="No data to display. Click on a country in the map and select Mortality Rate (under five) for more information",
+        fig.add_annotation(text="No data to display. Click on a country in the map <br> and select Mortality Rate (under five) for more information",
                        showarrow=False)
     fig.update_layout(plot_bgcolor="rgba(0, 0, 0, 0)", dragmode=False)
     return fig
