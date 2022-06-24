@@ -84,7 +84,7 @@ def initScatter(data,Vacc,VaccList):
 
     fig=AnnotateVaccineName(fig,Vacc,VaccList)
     
-    print(fig)
+    #print(fig)
     return fig
 
 
