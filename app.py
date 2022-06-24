@@ -187,20 +187,15 @@ app.layout = html.Div(
                         dbc.Row(comments4a),
                         html.Br(),
                         html.Br(),
-                        dbc.Row(
-                            [dbc.Col(dcc.Dropdown(id="dropdown",
-                                                  options=VaccList,
-                                                  value=VaccList[0]["value"]), width=3),
-                             ]
-                        ),
                         html.Br(),
                         dbc.Row([dbc.Col(dcc.Graph(figure=scatter, id='scatter',
                                                    config=dict(
                                                        showTips=False,
                                                        showAxisDragHandles=False,
                                                        displayModeBar=False))),
-                                 dbc.Col(init4b)]
-
+                                 dbc.Col([dbc.Row(init4b),dbc.Row(dcc.Dropdown(id="dropdown",
+                                                  options=VaccList,
+                                                  value=VaccList[0]["value"]))])]
                                 ),
                         dbc.Row(comments4b)
                     ],
