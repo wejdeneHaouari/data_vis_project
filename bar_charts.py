@@ -5,7 +5,6 @@ import plotly.graph_objects as go
 import preprocess
 
 
-
 def get_empty_figure(chart_type):
     
     fig = go.Figure()
@@ -21,7 +20,7 @@ def get_empty_figure(chart_type):
     return fig
 
 
-
+# enter selected country in the chart data
 def insert_country(sorted_df, top_bottom_data, country):
     
     #default order for country if not one of the top 5 or bottom 5
