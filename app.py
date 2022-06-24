@@ -104,7 +104,7 @@ app.layout = html.Div(
                     id="vis2layout",
                     children=[
                         html.Br(),
-                        html.B("Child Mortality World Wide"),
+                        html.H2("Child Mortality World Wide"),
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
@@ -140,7 +140,7 @@ app.layout = html.Div(
                                                     )))
                                     ]),
                         html.Br(),
-                        html.B("Trends"),
+                        html.H2("Trends"),
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
@@ -170,7 +170,7 @@ app.layout = html.Div(
                             )
                         ]),
                         html.Br(),
-                        html.B("Vaccinations"),
+                        html.H2("Vaccinations"),
                         html.Hr(),
                         html.Br(),
                         dbc.Row(
