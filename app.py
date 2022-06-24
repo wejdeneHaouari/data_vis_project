@@ -66,7 +66,7 @@ def description_card():
     return html.Div(
         id="description-card",
         children=[
-            html.H3("The State of the World’s Children- UNICEF ", style={'color': '#2c8cff'}),
+            html.H1("The State of the World’s Children- UNICEF ", style={'color': '#2c8cff'}),
             html.Div(
                 id="intro",
                 children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
