@@ -69,7 +69,7 @@ def description_card():
             html.H1("The State of the World’s Children - UNICEF ", style={'color': '#2c8cff'}),
             html.Div(
                 id="intro",
-                children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                children="According to UNICEF, at least 1 in 3 children under five is under/overweight, and 1 in 2 experience hidden hunger which lessens the ability of millions of children to grow and develop healthily leading to their death. The following charts shows mortality and vaccination of children around the world",
             ),
         ],
     )
@@ -108,10 +108,11 @@ app.layout = html.Div(
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
-                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]), width=3)]),
+                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]), width=6)]),
                             #dbc.Row([dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"])],
                             #style={'width': '48%', 'display': 'inline-block'}),
-                            html.Hr(),
+                            html.Br(),
+                            html.Br(),
                             dbc.Row([dcc.Graph(id='display-selected-values')]),
                             dbc.Row([
                                     dbc.Col(dcc.Graph(
