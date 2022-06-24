@@ -77,7 +77,7 @@ def description_card():
 
 app.layout = html.Div(
     id="app-container",
-    style={'backgroundColor': 'white', 'margin': 0},
+    style={'backgroundColor': 'white', 'margin': 0, 'padding': '20px 90px 20px 90px'},
     children=[
         # Banner
         html.Div(
