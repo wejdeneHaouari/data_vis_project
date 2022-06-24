@@ -49,6 +49,7 @@ heatmap = heatmapfig.getHeatmap(regional)
 scatter = heatmapfig.initScatter(countries, "Rotavirus", VaccList)
 
 comments4a = Paragraphs.descriptionViz4a()
+comments4b = Paragraphs.descriptionViz4b()
 explain4a = Paragraphs.ExplainViz4a()
 init4b = Paragraphs.InitViz4b()
 
@@ -200,6 +201,7 @@ app.layout = html.Div(
                                  dbc.Col(explain4a)]
 
                                 )
+                        dbc.Row(comments4b)
                     ],
                 )
             ],
