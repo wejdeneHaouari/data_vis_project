@@ -200,7 +200,7 @@ app.layout = html.Div(
                                                        displayModeBar=False))),
                                  dbc.Col(explain4a)]
 
-                                )
+                                ),
                         dbc.Row(comments4b)
                     ],
                 )
