@@ -49,7 +49,6 @@ heatmap = heatmapfig.getHeatmap(regional)
 scatter = heatmapfig.initScatter(countries, "Rotavirus", VaccList)
 
 comments4a = Paragraphs.descriptionViz4a()
-comments4b = Paragraphs.descriptionViz4b()
 explain4a = Paragraphs.ExplainViz4a()
 init4b = Paragraphs.InitViz4b()
 
@@ -66,7 +65,7 @@ def description_card():
     return html.Div(
         id="description-card",
         children=[
-            html.H1("The State of the World’s Children- UNICEF ", style={'color': '#2c8cff'}),
+            html.H3("The State of the World’s Children- UNICEF ", style={'color': '#2c8cff'}),
             html.Div(
                 id="intro",
                 children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -78,13 +77,13 @@ def description_card():
 
 app.layout = html.Div(
     id="app-container",
-    style={'backgroundColor': 'white', 'margin': 0, 'padding': '20px 90px 20px 90px'},
+    style={'backgroundColor': 'white', 'margin': 0},
     children=[
         # Banner
         html.Div(
             id="banner",
             className="banner",
-            children=[html.Img(src=app.get_asset_url("polymtl.png"), style={"height":"60px"})],
+            children=[html.Img(src=app.get_asset_url("polymtl.png"))],
         ),
 
         html.Div(
@@ -104,7 +103,7 @@ app.layout = html.Div(
                     id="vis2layout",
                     children=[
                         html.Br(),
-                        html.H2("Child Mortality World Wide"),
+                        html.B("Child Mortality World Wide"),
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
@@ -118,7 +117,7 @@ app.layout = html.Div(
                                                     id='bar-chart',
                                                     className='graph',
                                                     figure=bar_charts.get_empty_figure('barchart'), 
-                                                    style={'width': '60vh', 'height': '30vh'},
+                                                    #style={'width': '60vh', 'height': '30vh'},
                                                     config=dict(
                                                         scrollZoom=False,
                                                         showTips=False,
@@ -130,7 +129,7 @@ app.layout = html.Div(
                                                     id='b2b-chart',
                                                     className='graph',
                                                     figure=bar_charts.get_empty_figure('b2bchart'), #draw_barchart(top_bottom_country, column, clickedCountry)
-                                                    style={'width': '60vh', 'height': '30vh'},
+                                                    #style={'width': '60vh', 'height': '30vh'},
                                                     config=dict(
                                                         scrollZoom=False,
                                                         showTips=False,
@@ -140,7 +139,7 @@ app.layout = html.Div(
                                                     )))
                                     ]),
                         html.Br(),
-                        html.H2("Trends"),
+                        html.B("Trends"),
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
@@ -157,7 +156,7 @@ app.layout = html.Div(
                         dbc.Row([
                             dcc.Graph(
                                 figure=barchart,
-                                style={'width': '60vh', 'height': '60vh'},
+                                #style={'width': '60vh', 'height': '60vh'},
                                 config=dict(
                                     scrollZoom=False,
                                     showTips=False,
@@ -170,7 +169,7 @@ app.layout = html.Div(
                             )
                         ]),
                         html.Br(),
-                        html.H2("Vaccinations"),
+                        html.B("Vaccinations"),
                         html.Hr(),
                         html.Br(),
                         dbc.Row(
@@ -200,8 +199,7 @@ app.layout = html.Div(
                                                        displayModeBar=False))),
                                  dbc.Col(explain4a)]
 
-                                ),
-                        dbc.Row(comments4b)
+                                )
                     ],
                 )
             ],
