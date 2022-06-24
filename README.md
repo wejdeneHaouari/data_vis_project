@@ -41,3 +41,6 @@ python app.py
 ```
 
 ## Deployment
+```
+git push heroku
+```
