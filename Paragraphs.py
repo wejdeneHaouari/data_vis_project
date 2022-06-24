@@ -42,7 +42,9 @@ def InitViz4b():
     initialize = [
         html.P(children=[
             "One might ask whether the vaccination rate influences the mortality rate of the children to such an extent that it would be obvious from comparing mortality rate and vaccination rate directly. ",
-            "This is why the next figure shows the mortality rate of children aged 5 to 14 over the vaccination rate. For clarity, just one vaccine is displayed at a time. ",
+            "This is why the figure on the left shows the mortality rate of children aged 5 to 14 over the vaccination rate. For clarity, just one vaccine is displayed at a time.",
+            html.Br(),
+            "What do we see? While Niger has the highest mortality rate, it is on average not the country with the lowest vaccination rates. Nevertheless, most countries with vaccination rates close to 100% are indeed countries with low child mortalities.",
             html.Br(),
             "Please select a vaccine from the dropdown menu to explore the relationships:"],
                style={"font-size": "16px"}),
