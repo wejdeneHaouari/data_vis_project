@@ -96,8 +96,7 @@ def draw_b2bchart(top_bottom_country, clickedCountry):
     stepSize = 20
     r = range(fig.layout["xaxis"]["range"][0], fig.layout["xaxis"]["range"][1], stepSize)
     fig.update_layout(barmode='stack',
-                      title={'text': "Mortality Rate of Children Under 5 Years",
-                             'x':0.5,
+                      title={'x':0.5,
                              'xanchor': 'center',
                             },
                       showlegend = False,
