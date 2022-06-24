@@ -1,6 +1,5 @@
 import pandas as pd
 import pathlib
-from numpy import nan
 
 # Path
 BASE_PATH = pathlib.Path(__file__).parent.resolve()
@@ -34,7 +33,7 @@ def getData(path, loc):
             index=["Least developed countries", "Europe and Central Asia", "Sub-Saharan Africa"], errors="ignore",
             inplace=True)
     df = df.sort_index(axis=1)
-    df = df.replace("-", nan)
+    df = df.replace("-", "")
 
     return df
 
