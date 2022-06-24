@@ -30,6 +30,7 @@ def draw_barchart(data):
                       legend={'traceorder': 'reversed'},
                       xaxis=dict(dtick=20, title="Mortality rate per 1000"),
                       title_text="Mortality Rate of Children under 5 Years Per Region",
+                      height=700, width=800, margin_r=10, margin_b=20, margin_pad=4, margin_autoexpand=True
                       # yaxis = dict(autorange='reversed')
 
                       )
