@@ -14,8 +14,8 @@ We suggest you to create a virtual environment for running this app with Python 
 and open your terminal/command prompt in the root folder.
 
 ```
-git clone https://github.com/plotly/dash-sample-apps
-cd dash-sample-apps/apps/dash-clinical-analytics
+git clone https://github.com/wejdeneHaouari/data_vis_project
+data_vis_project
 python3 -m virtualenv venv
 
 ```
@@ -32,7 +32,7 @@ venv\Scripts\activate
 
 Install all required packages by running:
 ```
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 Run this app locally with:
@@ -40,12 +40,4 @@ Run this app locally with:
 python app.py
 ```
 
-## Screenshot
-
-![screenshot](img/screencapture.png)
-
-## Resources
-
-* [Dash](https://dash.plot.ly/)
-* Inspired by [Tableau template](https://www.tableau.com/solutions/workbook/improve-patient-satisfaction-improving-cycle-time).
-
+## Deployment

@@ -21,7 +21,6 @@ import preprocess
 import choropleth_map
 import bar_charts
 
-
 external_stylesheets = [dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(
@@ -37,7 +36,7 @@ app.config.suppress_callback_exceptions = True
 
 mapdata = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
 VarList = preprocess.variables(mapdata)
-my_data=pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
+my_data = pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
 
 data_path = "data/UNICEF_Data_4.xlsx"
 regional = data.getData(data_path, "Regions")
@@ -75,7 +74,6 @@ def description_card():
     )
 
 
-
 app.layout = html.Div(
     id="app-container",
     style={'backgroundColor': 'white', 'margin': 0, 'padding': '20px 90px 20px 90px'},
@@ -84,7 +82,7 @@ app.layout = html.Div(
         html.Div(
             id="banner",
             className="banner",
-            children=[html.Img(src=app.get_asset_url("polymtl.png"), style={"height":"60px"})],
+            children=[html.Img(src=app.get_asset_url("polymtl.png"), style={"height": "60px"})],
         ),
 
         html.Div(
@@ -108,37 +106,39 @@ app.layout = html.Div(
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
-                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]), width=3)]),
-                            #dbc.Row([dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"])],
-                            #style={'width': '48%', 'display': 'inline-block'}),
-                            html.Hr(),
-                            dbc.Row([dcc.Graph(id='display-selected-values')]),
-                            dbc.Row([
-                                    dbc.Col(dcc.Graph(
-                                                    id='bar-chart',
-                                                    className='graph',
-                                                    figure=bar_charts.get_empty_figure('barchart'), 
-                                                    style={'width': '60vh', 'height': '30vh'},
-                                                    config=dict(
-                                                        scrollZoom=False,
-                                                        showTips=False,
-                                                        showAxisDragHandles=False,
-                                                        doubleClick=False,
-                                                        displayModeBar=False
-                                                    ))),
-                                    dbc.Col( dcc.Graph(
-                                                    id='b2b-chart',
-                                                    className='graph',
-                                                    figure=bar_charts.get_empty_figure('b2bchart'), #draw_barchart(top_bottom_country, column, clickedCountry)
-                                                    style={'width': '60vh', 'height': '30vh'},
-                                                    config=dict(
-                                                        scrollZoom=False,
-                                                        showTips=False,
-                                                        showAxisDragHandles=False,
-                                                        doubleClick=False,
-                                                        displayModeBar=False
-                                                    )))
-                                    ]),
+                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]),
+                                    width=3)]),
+                        # dbc.Row([dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"])],
+                        # style={'width': '48%', 'display': 'inline-block'}),
+                        html.Hr(),
+                        dbc.Row([dcc.Graph(id='display-selected-values')]),
+                        dbc.Row([
+                            dbc.Col(dcc.Graph(
+                                id='bar-chart',
+                                className='graph',
+                                figure=bar_charts.get_empty_figure('barchart'),
+                                style={'width': '60vh', 'height': '30vh'},
+                                config=dict(
+                                    scrollZoom=False,
+                                    showTips=False,
+                                    showAxisDragHandles=False,
+                                    doubleClick=False,
+                                    displayModeBar=False
+                                ))),
+                            dbc.Col(dcc.Graph(
+                                id='b2b-chart',
+                                className='graph',
+                                figure=bar_charts.get_empty_figure('b2bchart'),
+                                # draw_barchart(top_bottom_country, column, clickedCountry)
+                                style={'width': '60vh', 'height': '30vh'},
+                                config=dict(
+                                    scrollZoom=False,
+                                    showTips=False,
+                                    showAxisDragHandles=False,
+                                    doubleClick=False,
+                                    displayModeBar=False
+                                )))
+                        ]),
                         html.Br(),
                         html.H2("Trends"),
                         html.Hr(),
@@ -210,10 +210,6 @@ app.layout = html.Div(
 )
 
 
-
-
-
-
 @app.callback(Output('display-selected-values', 'figure'),
               [Input('map-dropdown', 'value')])
 def update_output(value):
@@ -223,33 +219,29 @@ def update_output(value):
     return fig
 
 
-
 @app.callback(
-    [Output('bar-chart', 'figure'),Output('b2b-chart','figure')],
-    [Input('display-selected-values', 'clickData'),Input('map-dropdown', 'value')] 
+    [Output('bar-chart', 'figure'), Output('b2b-chart', 'figure')],
+    [Input('display-selected-values', 'clickData'), Input('map-dropdown', 'value')]
 )
-def map_clicked(clickData,value):
-    
-    
+def map_clicked(clickData, value):
     if clickData is None:
-        b2b_figure=bar_charts.get_empty_figure('b2bchart')
+        b2b_figure = bar_charts.get_empty_figure('b2bchart')
         figure = bar_charts.get_empty_figure('barchart')
-        return figure,b2b_figure
-    
-    columnb=value
-    country=clickData['points'][0]['hovertext']
-    
-    sorted_df, top_bottom_data=preprocess.top_bottom(my_data, columnb)
-    top_bottom_country, clickedCountry=bar_charts.insert_country(sorted_df, top_bottom_data, country) 
+        return figure, b2b_figure
 
-    figure=bar_charts.draw_barchart(top_bottom_country, columnb, clickedCountry)
-    
-    b2b_figure=bar_charts.get_empty_figure('b2bchart')
-    if columnb=='Under-five_mortality_rate_2019,both':
-        b2b_figure=bar_charts.draw_b2bchart(top_bottom_country, clickedCountry)
-    
-    return figure,b2b_figure
-  
+    columnb = value
+    country = clickData['points'][0]['hovertext']
+
+    sorted_df, top_bottom_data = preprocess.top_bottom(my_data, columnb)
+    top_bottom_country, clickedCountry = bar_charts.insert_country(sorted_df, top_bottom_data, country)
+
+    figure = bar_charts.draw_barchart(top_bottom_country, columnb, clickedCountry)
+
+    b2b_figure = bar_charts.get_empty_figure('b2bchart')
+    if columnb == 'Under-five_mortality_rate_2019,both':
+        b2b_figure = bar_charts.draw_b2bchart(top_bottom_country, clickedCountry)
+
+    return figure, b2b_figure
 
 
 @app.callback([Output('scatter', 'figure')],
