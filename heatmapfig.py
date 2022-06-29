@@ -3,9 +3,10 @@ import hover_template
 
 
 def getHeatmap(data):
+    XLabels = ["<b>"+x+"</b>" for x in data.columns]
     fig = px.imshow(data, labels=dict(color="Vaccination rate (%)"),
                     x=data.columns, y=data.index, zmin=0, zmax=100)
-    fig.update_layout(dragmode=False, xaxis_nticks=len(data.columns))
+    fig.update_layout(dragmode=False)
     fig.update_layout(height=420, width=620, margin_r=10, margin_b=20, 
                       title="Vaccinations per region", title_x=0, title_y=1)
     fig.update_layout(xaxis_title=None, yaxis_title=None, margin_pad=4,
@@ -23,13 +24,15 @@ def getHeatmap(data):
                       tickmode="linear",
                       ticks="outside",
                       title=dict(side="right",
-                                 font=dict(family="Arial Rounded MT Bold",
+                                 text="<b>Vaccination rate (%)</b>",
+                                 font=dict(family="Arial Rounded MT Bold, sans-serif",
                                            size=18))),
         colorscale=[[0.0, "#dddce7"], [0.00005, "#630000"],
                     [0.4, "#a80000"], [1.0, "#fff8f6"]])) 
     fig.update_xaxes(side="top", ticks="outside", tickangle=-40,
-                     automargin=True, showgrid=True,
-                     tickfont=dict(size=14, family="Arial Rounded MT Bold"))
+                     tickmode="array", tickvals=data.columns,
+                     automargin=True, showgrid=True, ticktext=XLabels,
+                     tickfont=dict(size=14, family="Arial Rounded MT Bold, sans-serif"))
     fig.update_yaxes(side="left", tickangle=0, automargin=True, 
                      showgrid=True, tickfont_size=14)
     custom = fig["data"][0]["z"].tolist()
@@ -94,8 +97,8 @@ def AnnotateVaccineName(figure, Vacc, VaccList):
         bordercolor="#630000",
         align="right",
         valign="bottom",
-        text=getName(Vacc, VaccList),
-        font=dict(family="Arial Rounded MT Bold", size=18, color="black"),
+        text="<b>"+ getName(Vacc, VaccList) +"</b>",
+        font=dict(family="Arial Rounded MT Bold, sans-serif", size=18, color="black"),
         showarrow=False,
         xref="paper",
         yref="paper",
