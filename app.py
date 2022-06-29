@@ -238,7 +238,7 @@ def map_clicked(clickData, value):
     top_bottom_country, clickedCountry = data.insert_country(sorted_df, top_bottom_data, country)
     bar_figure = map_barCharts.draw_barchart(top_bottom_country, selectCategory, clickedCountry)
     b2b_figure = map_barCharts.get_empty_figure('b2bchart')
-    if selectCategory == 'Under-five mortality rate 2019,both':
+    if selectCategory == 'Under-five mortality rate 2019':
         b2b_figure = map_barCharts.draw_b2bchart(top_bottom_country, clickedCountry)
     return bar_figure, b2b_figure
 
