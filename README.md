@@ -2,7 +2,7 @@
 
 ## About this app
 
-This dashboard allows you to explore the mortality rates of children by different age groups, countries and years
+This dashboard allows you to explore the mortality rates of children by different age groups, countries and years, and on top of this also the vaccination status!
 
 ## Requirements
 
