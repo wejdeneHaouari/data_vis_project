@@ -53,7 +53,7 @@ clusteredBarData = data.getDataBarChart()
 ClusteredbarChart = clustered_barchart.draw_clusteredBarchart(clusteredBarData)
 explainClustBar = Paragraphs.ExplainClustBarViz()
 explainVis2 = Paragraphs.ExplainVis2()
-
+introduction = Paragraphs.introduction()
 
 def description_card():
     """
@@ -67,13 +67,7 @@ def description_card():
                     style={'color': '#2c8cff'}),
             html.Div(
                 id="intro",
-                children="According to UNICEF, at least 1 in 3 children under"
-                         + " five is under/overweight, and 1 in 2 experience"
-                         + " hidden hunger which lessens the ability of"
-                         + " millions of children to grow and develop"
-                         + " healthily leading to their death. The following"
-                         + " scharts hows mortality and vaccination of"
-                         + " children around the world",
+                children=introduction,
             ),
         ],
     )

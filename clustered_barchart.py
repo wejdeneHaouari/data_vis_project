@@ -29,7 +29,6 @@ def draw_clusteredBarchart(data):
                              'title_font_family':'sans-serf'},
                       yaxis={'title_font_family':'sans-serf'},
                       title_text="Mortality Rate of Children under 5 Years Per Region",
-                      title_font_family='sans-serf',
                       height=700, width=800, margin_r=10, margin_b=20,
                       margin_pad=4, margin_autoexpand=True
                       )
