@@ -87,7 +87,7 @@ def introduction():
         html.P(children=[
             "According to UNICEF, at least 1 in 3 children under five is under/overweight, and 1 in 2 experience "
             "hidden hunger which lessens the ability of millions of children to grow and develop healthily leading to "
-            "their death. The following scharts hows mortality and vaccination of children around the world.",
+            "their death. The following charts hows mortality and vaccination of children around the world.",
             html.Br(),
             "Mortality rate is calculated per 1000 people.",
             html.Br(),

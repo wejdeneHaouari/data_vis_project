@@ -11,7 +11,7 @@ def draw_clusteredBarchart(data):
     fig = go.Figure()
     
     fig.update_layout(
-        template=pio.templates['simple_white'],
+        # template=pio.templates['simple_white'],
         dragmode=False,
         #barmode='relative'
     )
@@ -30,7 +30,9 @@ def draw_clusteredBarchart(data):
                       yaxis={'title_font_family':'sans-serf'},
                       title_text="Mortality Rate of Children under 5 Years Per Region",
                       height=700, width=800, margin_r=10, margin_b=20,
-                      margin_pad=4, margin_autoexpand=True
+                      margin_pad=4, margin_autoexpand=True,
+                      paper_bgcolor='rgba(0,0,0,0)',
+                      plot_bgcolor='rgba(0,0,0,0)'
                       )
 
     return fig
