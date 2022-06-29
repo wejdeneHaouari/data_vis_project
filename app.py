@@ -57,6 +57,7 @@ explainVis2 = Paragraphs.ExplainVis2()
 introduction = Paragraphs.introduction()
 explainReductionRate = Paragraphs.ExplainMapReductionRate()
 
+
 def description_card():
     """
 
@@ -152,6 +153,7 @@ app.layout = html.Div(
                             dbc.Col(dash_components.generate_info_panel2(), width={"size": 3, "offset": 1})
                         ]
                         ),
+                        html.Br(),
                         dbc.Row(explainVis2),
                         html.Br(),
                         dbc.Row(
