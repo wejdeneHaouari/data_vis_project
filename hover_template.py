@@ -53,12 +53,12 @@ def get_b2bChart_template(gender):
     
 
 def vis2Hover():
-    labelStyle = '<span style="font-family: Roboto Slab; font-weight:bold">'  # margin-left: 30px
-    valueStyle = '<span style="font-family: Roboto; font-weight:regular">'
+    labelStyle = '<span style=" font-weight:bold">'  # margin-left: 30px
+    valueStyle = '<span style=" font-weight:regular">'
     closeStyle = '</span>'
     hovertemp = '<br>'.join([
-        labelStyle + '          Mortality Rate:' + closeStyle + valueStyle + ' : %{y}' + closeStyle,
-        labelStyle + '          Country:' + closeStyle + valueStyle + ' : %{customdata}' + closeStyle   + '<extra></extra>'
+        labelStyle + 'Mortality Rate:' + closeStyle + valueStyle + ' %{y}' + closeStyle,
+        labelStyle + 'Country:' + closeStyle + valueStyle + ' %{customdata}' + closeStyle   + '<extra></extra>'
     ])
     return hovertemp
 
