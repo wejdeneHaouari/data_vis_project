@@ -1,5 +1,4 @@
 from dash import html
-from dash import dcc
 
 
 def descriptionViz4a():
@@ -14,6 +13,8 @@ def descriptionViz4a():
                           style={"font-size": "12px"})
                    ]
     return description
+
+
 def descriptionViz4b():
     description = [html.P(children=[
         "Distribution of vaccination rate and mortality rate for the selected vaccine for different countries.",
@@ -34,7 +35,6 @@ def ExplainViz4a():
             "As one would expect, less children are fully vaccinated against the measles (two doses) than have had just their first dose."],
                style={"font-size": "16px"})
     ]
-
     return explanation
 
 
@@ -49,5 +49,4 @@ def InitViz4b():
             "Please select a vaccine from the dropdown menu to explore the relationships:"],
                style={"font-size": "16px"}),
     ]
-
     return initialize

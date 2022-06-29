@@ -2,6 +2,7 @@
     Provides the templates for the tooltips.
 '''
 
+
 def get_map_template():
     template = '<b>%{customdata}</b>'
     return template
@@ -33,14 +34,12 @@ def map_marker_hover_template(name):
         Returns:
             The hover template.
     '''
-    # TODO : Generate the hover template
     labelStyle = '<span style="font-family: Oswald">'
     hovertemp = '<br>'.join([labelStyle + name + '<extra></extra>'])
     return hovertemp
 
-def vis2Hover():
 
-    # TODO : Generate the hover template
+def vis2Hover():
     labelStyle = '<span style="font-family: Roboto Slab; font-weight:bold">'  # margin-left: 30px
     valueStyle = '<span style="font-family: Roboto; font-weight:regular">'
     closeStyle = '</span>'
@@ -50,10 +49,12 @@ def vis2Hover():
     ])
     return hovertemp
 
+
 def get_heatmap_template():
-    template= '%{x} vaccination rate in<br>%{y}: %{customdata} <extra></extra>'
+    template = '%{x} vaccination rate in<br>%{y}: %{customdata} <extra></extra>'
     return template
 
+
 def get_scatter_template():
-    template= '<b>%{customdata}</b><br>vaccination rate: %{y:.0f} %<br>mortality rate: %{x:.0f} %'
+    template = '<b>%{customdata}</b><br>vaccination rate: %{y:.0f} %<br>mortality rate: %{x:.0f} %'
     return template

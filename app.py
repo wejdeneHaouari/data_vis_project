@@ -3,12 +3,9 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, ClientsideFunction, State
 
-import json
 import numpy as np
 import pandas as pd
-import datetime
 from datetime import datetime as dt
-import pathlib
 import dash_components
 import data
 import callback
@@ -27,7 +24,8 @@ external_stylesheets = [dbc.themes.BOOTSTRAP]
 app = dash.Dash(
     __name__,
     external_stylesheets=external_stylesheets,
-    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
+    meta_tags=[{"name": "viewport",
+                "content": "width=device-width,initial-scale=1"}],
 )
 
 app.title = "The State of the World’s Children- UNICEF"
@@ -37,7 +35,7 @@ app.config.suppress_callback_exceptions = True
 
 mapdata = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
 VarList = preprocess.variables(mapdata)
-my_data=pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
+my_data = pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
 
 data_path = "data/UNICEF_Data_4.xlsx"
 regional = data.getData(data_path, "Regions")
@@ -66,34 +64,42 @@ def description_card():
     return html.Div(
         id="description-card",
         children=[
-            html.H1("The State of the World’s Children - UNICEF ", style={'color': '#2c8cff'}),
+            html.H1("The State of the World’s Children - UNICEF ",
+                    style={'color': '#2c8cff'}),
             html.Div(
                 id="intro",
-                children="According to UNICEF, at least 1 in 3 children under five is under/overweight, and 1 in 2 experience hidden hunger which lessens the ability of millions of children to grow and develop healthily leading to their death. The following charts shows mortality and vaccination of children around the world",
+                children="According to UNICEF, at least 1 in 3 children under"
+                         + " five is under/overweight, and 1 in 2 experience"
+                         + " hidden hunger which lessens the ability of"
+                         + " millions of children to grow and develop"
+                         + " healthily leading to their death. The following"
+                         + " scharts hows mortality and vaccination of"
+                         + " children around the world",
             ),
         ],
     )
 
 
-
 app.layout = html.Div(
     id="app-container",
-    style={'backgroundColor': 'white', 'margin': 0, 'padding':"10px 90px 20px 90px"},
+    style={'backgroundColor': 'white', 'margin': 0,
+           'padding': "10px 90px 20px 90px"},
     children=[
         # Banner
         html.Div(
             id="banner",
             className="banner",
-            children=[html.Img(src=app.get_asset_url("polymtl.png"), style={"height":"50px"})],
+            children=[html.Img(src=app.get_asset_url("polymtl.png"),
+                               style={"height": "50px"})],
         ),
 
         html.Div(
-            children=[
-                         description_card()]
-                     + [
-                         html.Div(
-                             ["initial child"], id="output-clientside", style={"display": "none"}
-                         )
+            children=[description_card()] +
+                     [
+                        html.Div(
+                            ["initial child"], id="output-clientside",
+                            style={"display": "none"}
+                        )
                      ],
         ),
 
@@ -108,9 +114,10 @@ app.layout = html.Div(
                         html.Hr(),
                         html.Br(),
                         dbc.Row([
-                            dbc.Col(dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"]), width=6)]),
-                            #dbc.Row([dcc.Dropdown(id='map-dropdown', options=VarList, value=VarList[0]["value"])],
-                            #style={'width': '48%', 'display': 'inline-block'}),
+                            dbc.Col(dcc.Dropdown(id='map-dropdown',
+                                                 options=VarList,
+                                                 value=VarList[0]["value"]),
+                                                 width=6)]),
                             html.Br(),
                             html.Br(),
                             dbc.Row([dcc.Graph(id='display-selected-values')]),
@@ -118,8 +125,7 @@ app.layout = html.Div(
                                     dbc.Col(dcc.Graph(
                                                     id='bar-chart',
                                                     className='graph',
-                                                    figure=bar_charts.get_empty_figure('barchart'), 
-                                                    #style={'width': '60vh', 'height': '30vh'},
+                                                    figure=bar_charts.get_empty_figure('barchart'),
                                                     config=dict(
                                                         scrollZoom=False,
                                                         showTips=False,
@@ -127,11 +133,10 @@ app.layout = html.Div(
                                                         doubleClick=False,
                                                         displayModeBar=False
                                                     ))),
-                                    dbc.Col( dcc.Graph(
+                                    dbc.Col(dcc.Graph(
                                                     id='b2b-chart',
                                                     className='graph',
-                                                    figure=bar_charts.get_empty_figure('b2bchart'), #draw_barchart(top_bottom_country, column, clickedCountry)
-                                                    #style={'width': '60vh', 'height': '30vh'},
+                                                    figure=bar_charts.get_empty_figure('b2bchart'),
                                                     config=dict(
                                                         scrollZoom=False,
                                                         showTips=False,
@@ -158,7 +163,6 @@ app.layout = html.Div(
                         dbc.Row([
                             dcc.Graph(
                                 figure=barchart,
-                                #style={'width': '60vh', 'height': '60vh'},
                                 config=dict(
                                     scrollZoom=False,
                                     showTips=False,
@@ -193,7 +197,8 @@ app.layout = html.Div(
                                                        showTips=False,
                                                        showAxisDragHandles=False,
                                                        displayModeBar=False))),
-                                 dbc.Col([dbc.Row(init4b),dbc.Row(dcc.Dropdown(id="dropdown",
+                                 dbc.Col([dbc.Row(init4b),
+                                          dbc.Row(dcc.Dropdown(id="dropdown",
                                                   options=VaccList,
                                                   value=VaccList[0]["value"]))])]
                                 ),
@@ -206,10 +211,7 @@ app.layout = html.Div(
 )
 
 
-
-
-
-
+# choropleth map according to the selected variable
 @app.callback(Output('display-selected-values', 'figure'),
               [Input('map-dropdown', 'value')])
 def update_output(value):
@@ -219,32 +221,31 @@ def update_output(value):
     return fig
 
 
-#display bar charts when a country is clicked or drop down menu selection changed
+# display bar charts when a country is clicked 
+# or drop down menu selection changed
 @app.callback(
-    [Output('bar-chart', 'figure'),Output('b2b-chart','figure')],
-    [Input('display-selected-values', 'clickData'),Input('map-dropdown', 'value')] 
+    [Output('bar-chart', 'figure'),
+     Output('b2b-chart', 'figure')],
+    [Input('display-selected-values', 'clickData'), 
+     Input('map-dropdown', 'value')] 
 )
-def map_clicked(clickData,value):
+def map_clicked(clickData, value):
 
     if clickData is None:
-        b2b_figure=bar_charts.get_empty_figure('b2bchart')
+        b2b_figure = bar_charts.get_empty_figure('b2bchart')
         figure = bar_charts.get_empty_figure('barchart')
-        return figure,b2b_figure
-    
-    columnb=value
-    country=clickData['points'][0]['hovertext']
-    
-    sorted_df, top_bottom_data=preprocess.top_bottom(my_data, columnb)
-    top_bottom_country, clickedCountry=bar_charts.insert_country(sorted_df, top_bottom_data, country) 
-
-    figure=bar_charts.draw_barchart(top_bottom_country, columnb, clickedCountry)
-    
-    b2b_figure=bar_charts.get_empty_figure('b2bchart')
-    if columnb=='Under-five_mortality_rate_2019,both':
-        b2b_figure=bar_charts.draw_b2bchart(top_bottom_country, clickedCountry)
-    
-    return figure,b2b_figure
-  
+        return figure, b2b_figure
+    columnb = value
+    country = clickData['points'][0]['hovertext']
+    sorted_df, top_bottom_data = preprocess.top_bottom(my_data, columnb)
+    top_bottom_country, clickedCountry = bar_charts.insert_country(sorted_df, top_bottom_data, country)
+    figure = bar_charts.draw_barchart(top_bottom_country, columnb,
+                                      clickedCountry)
+    b2b_figure = bar_charts.get_empty_figure('b2bchart')
+    if columnb == 'Under-five mortality rate 2019,both':
+        b2b_figure = bar_charts.draw_b2bchart(top_bottom_country,
+                                              clickedCountry)
+    return figure, b2b_figure
 
 
 @app.callback([Output('scatter', 'figure')],

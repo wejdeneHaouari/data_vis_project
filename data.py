@@ -30,7 +30,8 @@ def getData(path, loc):
     for name in names.to_dict('records'):
         df.rename(columns={name["ShortName"]: name["LongName"]}, inplace=True)
     df.drop(columns=["HighLevel", "Diphtheria, Pertussis, Tetanus, 1/3"],
-            index=["Least developed countries", "Europe and Central Asia", "Sub-Saharan Africa"], errors="ignore",
+            index=["Least developed countries", "Europe and Central Asia",
+                   "Sub-Saharan Africa"], errors="ignore",
             inplace=True)
     df = df.sort_index(axis=1)
     df = df.replace("-", "")

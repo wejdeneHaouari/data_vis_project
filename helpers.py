@@ -1,7 +1,6 @@
-import dash
-from dash import dcc
 from dash import html
-from dash.dependencies import Input, Output, ClientsideFunction, State
+
+
 def generate_table_row(id, style, col1, col2):
     return html.Div(
         id=id,

@@ -7,7 +7,8 @@ def generate_country_dropdown(countries):
     return html.Div(
         id="country_dropdown_vis2",
         children=[
-            dcc.Dropdown(countries, id='country-select', placeholder="Select Country"),
+            dcc.Dropdown(countries, id='country-select',
+                         placeholder="Select Country"),
             html.Br(),
             html.Div(id='dd-output-container')
         ],
@@ -35,7 +36,8 @@ def generate_info_panel2():
         id="info-panel-vis2",
         children=[
             html.Table([
-                html.Tr(children=[html.Td(id='group1'), html.Td(id='rate1')], style={"color": "red"}),
+                html.Tr(children=[html.Td(id='group1'), html.Td(id='rate1')],
+                        style={"color": "red"}),
                 html.Tr([html.Td(id='group2'), html.Td(id='rate2')]),
                 html.Tr([html.Td(id='group3'), html.Td(id='rate3')]),
                 html.Tr([html.Td(id='group4'), html.Td(id='rate4')]),

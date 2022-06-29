@@ -1,5 +1,4 @@
 from re import T
-import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
 import preprocess
@@ -62,7 +61,8 @@ def draw_barchart(top_bottom_country, columnb, clickedCountry):
                       showlegend=False,
                       xaxis={"title_text": preprocess.get_selected_group(columnb)},
                       hoverlabel=dict(bgcolor='white', font_size=16),
-                      height=420, width=620, margin_r=10, margin_b=20, margin_pad=4, margin_autoexpand=True)
+                      height=420, width=620, margin_r=10, margin_b=20,
+                      margin_pad=4, margin_autoexpand=True)
 
     # fig.update_yaxes(categoryorder='array', categoryarray=top_bottom['Country'], title_standoff= 1)
 
@@ -98,7 +98,8 @@ def draw_b2bchart(top_bottom_country, clickedCountry):
                              "title_text": 'Female Mortality Rate  vs. Male Mortality Rate',
                              },
                       hoverlabel=dict(bgcolor='white', font_size=16),
-                      height=420, width=620, margin_r=10, margin_b=20, margin_pad=4, margin_autoexpand=True
+                      height=420, width=620, margin_r=10, margin_b=20,
+                      margin_pad=4, margin_autoexpand=True
                       )
 
     return fig
