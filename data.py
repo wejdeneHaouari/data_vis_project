@@ -12,7 +12,7 @@ dataframeVis2 = dataframeVis2.sort_values('country').reset_index()
 dataBarChart = pd.read_csv('./data/Regions.csv')
 
 
-def to_float(my_df, column):  # ="Under-five_mortality_rate_2019,both"
+def to_float(my_df, column):
     '''
         Convert columns to float
         Args:
@@ -42,7 +42,7 @@ def variables(my_df):
                errors="ignore", inplace=True)
     value = list(my_df.columns)
     label = pd.Series(value)
-    label = label.replace({"Under-five mortality rate 2019,both": "Mortality rate (under five)",
+    label = label.replace({"Under-five mortality rate 2019": "Mortality rate (under five)",
                             "Neonatal mortality rate 2019": "Mortality rate (Neonatal)",
                             "Infant mortality rate 2019": "Mortality rate (Infant)",
                             "Mortality rate among children aged 5–14 years, 2019": "Mortality rate (5-14 years)",
