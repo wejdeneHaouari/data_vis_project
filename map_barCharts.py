@@ -9,17 +9,19 @@ An empty figure is displayed in place of bar chart and back-to-back chart when a
 '''
 
 from re import T
-import pandas as pd
 import plotly.graph_objects as go
 import hover_template
 import data
 
 
-# create empty figure
 def get_empty_figure(chart_type):
+    """create empty figure
+    Args:
+        chart_type: the type of the chart
+    Returns:
+        figure
+    """
     fig = go.Figure()
-
-    # display message depending on chart type
     fig.update_xaxes(showgrid=False, visible=False, showticklabels=False)
     fig.update_yaxes(showgrid=False, visible=False, showticklabels=False)
     if chart_type == 'barchart':
@@ -29,17 +31,26 @@ def get_empty_figure(chart_type):
         fig.add_annotation(text="No data to display. Click on a country in the map <br> and select Mortality Rate ("
                                 "under five) for more information",
                            showarrow=False)
-
     fig.update_layout(plot_bgcolor="rgba(0, 0, 0, 0)", dragmode=False)
     return fig
 
 
-def draw_barchart(top_bottom_country, columnb, clickedCountry):
+def draw_barchart(top_bottom_country, column, clickedCountry):
+    """Draw the bar chart
+
+    Args:
+        top_bottom_country: the countries list
+        column: th column from the data sheet
+        clickedCountry (_type_): _description_
+
+    Returns:
+        figure 
+    """
     colors = ['lightslategray'] * len(top_bottom_country)  # initialize all bars as grey
     colors[clickedCountry] = '#660000'  # only clicked country bar is red
 
     fig = go.Figure(data=[
-        go.Bar(y=top_bottom_country['numCountry'], x=top_bottom_country[columnb],
+        go.Bar(y=top_bottom_country['numCountry'], x=top_bottom_country[column],
                orientation='h', marker_color=colors, base=0,
                hovertemplate=hover_template.get_barChart_template()
                )
@@ -47,7 +58,7 @@ def draw_barchart(top_bottom_country, columnb, clickedCountry):
 
     fig.update_layout(barmode='stack',
                       showlegend=False,
-                      xaxis={"title_text": data.get_selected_group_label(columnb, top_bottom_country.copy())},
+                      xaxis={"title_text": data.get_selected_group_label(column, top_bottom_country.copy())},
                       hoverlabel=dict(bgcolor='white', font_size=16),
                       height=420, width=620,
                       margin_r=50, margin_b=50, margin_l=50,
@@ -58,12 +69,20 @@ def draw_barchart(top_bottom_country, columnb, clickedCountry):
 
 def draw_b2bchart(top_bottom_country, clickedCountry):
     '''
-    since there is no direct option to draw back-to-back chart 
-        a horizontal bar chart is drawn where 
-        male is plot on positive xaxis and female on negative xaxis 
+    since there is no direct option to draw back-to-back chart
+    a horizontal bar chart is drawn where
+    male is plot on positive xaxis and female on negative xaxis
     in order to avoid displaying negative data for female:
-        for the tooltip, customdata is used and data read directly from column (instead of %{x})
-        for the xaxis ticks, negative ticks converted to positive 
+    for the tooltip, customdata is used and data read directly from column (instead of %{x})
+    for the xaxis ticks, negative ticks converted to positive
+
+    Args:
+        top_bottom_country: the countries list
+        column: th column from the data sheet
+        clickedCountry: the clicked country on the map 
+    
+    Returns:
+        figure
     '''
     colors = ['lightslategray'] * len(top_bottom_country)  # initialize all bars as grey
     colors[clickedCountry] = '#660000'  # only clicked country bar is red
