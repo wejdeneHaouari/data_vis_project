@@ -2,13 +2,13 @@ from dash import html
 
 
 def descrptionViz1():
-    description = [html.P(children=[    
+    description = [html.P(children=[
         "The map shows the mortality rate of children under 5 years for each country (The darker the color, the higher the rate). ",
         "For the mortality rate in other age categories, number of death or annual percentage of reduction in the mortality rate, ",
         "please select an option from the drop-down menu. ",
         "For further information, click on a country and a horizontal bar chart will be shown: ",
         "It provide information about the countries with the five highest and five lowest mortality as well as the rank of the clicked country. ",
-        "In case of Mortality Rate (under five), a back-to-back chart will also be provided to show mortality per gender." ],
+        "In case of Mortality Rate (under five), a back-to-back chart will also be provided to show mortality per gender."],
         style={"font-size": "16px"}
     )]
     return description
@@ -86,10 +86,9 @@ def InitViz4b():
 def ExplainVis2():
     explanation = [
         html.P(children=[
-            "We notice that most of countries the number of death for between 5 and 14 age group is inferior to under "
-            "five age  group. To "
-            "exploit how mortality rates change with age select a country from the dropdown menu or click on a "
-            "marker from the visualization.",
+            "In most countries, the mortality rate for kids between the ages of 5 and 14 is lower than for children "
+            "under the age of 5. Choose a country from the drop-down menu or click on a marker in the visualisation "
+            "to explore how mortality rates vary with age.",
             html.Br()],
             style={"font-size": "16px"})
     ]
@@ -108,5 +107,16 @@ def introduction():
         ],
 
             style={"font-size": "16px"})
+    ]
+    return explanation
+
+
+def ExplainMapReductionRate():
+    explanation = [
+        html.P(children=[
+            "* Annual reduction rate (ARR) defined as ARR=100*(ln(V_t2/V_t1)/(t1-t2)), where t1=2000 and t2=2019 and "
+            "V_t1 (V_t2) are the values of 2000 (2019).",
+            html.Br()],
+            style={"font-size": "12px"})
     ]
     return explanation

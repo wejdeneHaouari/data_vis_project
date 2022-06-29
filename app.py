@@ -55,7 +55,7 @@ explainClustBar = Paragraphs.ExplainClustBarViz()
 explainVis1 = Paragraphs.descrptionViz1()
 explainVis2 = Paragraphs.ExplainVis2()
 introduction = Paragraphs.introduction()
-
+explainReductionRate = Paragraphs.ExplainMapReductionRate()
 
 def description_card():
     """
@@ -117,6 +117,7 @@ app.layout = html.Div(
                         dbc.Row(explainVis1),
                         html.Br(),
                         dbc.Row([dcc.Graph(id='display-selected-values')]),
+                        dbc.Row(explainReductionRate),
                         dbc.Row([
                             dbc.Col(dcc.Graph(
                                 id='bar-chart',
