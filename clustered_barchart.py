@@ -10,11 +10,7 @@ import hover_template
 def draw_clusteredBarchart(data):
     fig = go.Figure()
     
-    fig.update_layout(
-        # template=pio.templates['simple_white'],
-        dragmode=False,
-        #barmode='relative'
-    )
+    fig.update_layout(dragmode=False)
   
     colors = ['#630000', "#a80000", '#b8664f']    
     years = ['2019', '2000', '1990']
