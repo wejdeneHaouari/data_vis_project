@@ -64,6 +64,7 @@ def InitViz4b():
             "lowest vaccination rates. Nevertheless, most countries with vaccination rates close to 100% are indeed "
             "countries with low child mortalities.",
             html.Br(),
+            html.Br(),
             "Please select a vaccine from the dropdown menu to explore the relationships:"],
             style={"font-size": "16px"}),
     ]
@@ -86,8 +87,8 @@ def introduction():
     explanation = [
         html.P(children=[
             "According to UNICEF, at least 1 in 3 children under five is under/overweight, and 1 in 2 experience "
-            "hidden hunger which lessens the ability of millions of children to grow and develop healthily leading to "
-            "their death. The following charts hows mortality and vaccination of children around the world.",
+            "hidden hunger which lessens the ability of millions of children to grow and develop healthily - leading to "
+            "their death. The following charts show mortality and vaccination rates of children around the world.",
             html.Br(),
             "Mortality rate is calculated per 1000 people.",
             html.Br(),
