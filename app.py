@@ -159,8 +159,8 @@ app.layout = html.Div(
                         ),
                         html.Br(),
                         html.Br(),
-                        dbc.Row([
-                            dbc.Col(dcc.Graph(
+
+                            dbc.Row(dcc.Graph(
                                             figure=ClusteredbarChart,
                                             config=dict(
                                                 scrollZoom=False,
@@ -172,9 +172,9 @@ app.layout = html.Div(
                                             className='graph',
                                             id='clustBar-chart'
                                             )),
-                            dbc.Col(explainClustBar)
+                            dbc.Row(explainClustBar),
                             
-                        ]),
+
                         html.Br(),
                         html.H2("Vaccinations"),
                         html.Hr(),

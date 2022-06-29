@@ -64,7 +64,7 @@ def add_scatter_matrix(data):
 
     fig.add_trace(
         go.Scatter(text="Between 4 and 14",
-                   y=data['children'],
+                   y=data['between 5-14'],
                    mode='markers',
                    marker=dict(color='#aaaaaa'),
                    customdata=data['country'],
@@ -148,7 +148,7 @@ def update_vis2(data, country):
 
     fig.add_trace(
         go.Scatter(text="Between 4 and 14",
-                   y=data['children'],
+                   y=data['between 5-14'],
                    mode='markers',
                    marker=dict(color=colors,opacity=opacity),
                    customdata=data['country'],
