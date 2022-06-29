@@ -17,7 +17,6 @@ import clustered_barchart
 import choropleth_map
 import map_barCharts
 
-
 external_stylesheets = [dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(
@@ -52,7 +51,8 @@ init4b = Paragraphs.InitViz4b()
 
 clusteredBarData = data.getDataBarChart()
 ClusteredbarChart = clustered_barchart.draw_clusteredBarchart(clusteredBarData)
-explainClustBar=Paragraphs.ExplainClustBarViz()
+explainClustBar = Paragraphs.ExplainClustBarViz()
+explainVis2 = Paragraphs.ExplainVis2()
 
 
 def description_card():
@@ -95,10 +95,10 @@ app.layout = html.Div(
         html.Div(
             children=[description_card()] +
                      [
-                        html.Div(
-                            ["initial child"], id="output-clientside",
-                            style={"display": "none"}
-                        )
+                         html.Div(
+                             ["initial child"], id="output-clientside",
+                             style={"display": "none"}
+                         )
                      ],
         ),
 
@@ -116,34 +116,34 @@ app.layout = html.Div(
                             dbc.Col(dcc.Dropdown(id='map-dropdown',
                                                  options=VarList,
                                                  value=VarList[0]["value"]),
-                                                 width=6)]),
-                            html.Br(),
-                            html.Br(),
-                            dbc.Row([dcc.Graph(id='display-selected-values')]),
-                            dbc.Row([
-                                    dbc.Col(dcc.Graph(
-                                                    id='bar-chart',
-                                                    className='graph',
-                                                    figure=map_barCharts.get_empty_figure('barchart'),
-                                                    config=dict(
-                                                        scrollZoom=False,
-                                                        showTips=False,
-                                                        showAxisDragHandles=False,
-                                                        doubleClick=False,
-                                                        displayModeBar=False
-                                                    ))),
-                                    dbc.Col(dcc.Graph(
-                                                    id='b2b-chart',
-                                                    className='graph',
-                                                    figure=map_barCharts.get_empty_figure('b2bchart'),
-                                                    config=dict(
-                                                        scrollZoom=False,
-                                                        showTips=False,
-                                                        showAxisDragHandles=False,
-                                                        doubleClick=False,
-                                                        displayModeBar=False
-                                                    )))
-                                    ]),
+                                    width=6)]),
+                        html.Br(),
+                        html.Br(),
+                        dbc.Row([dcc.Graph(id='display-selected-values')]),
+                        dbc.Row([
+                            dbc.Col(dcc.Graph(
+                                id='bar-chart',
+                                className='graph',
+                                figure=map_barCharts.get_empty_figure('barchart'),
+                                config=dict(
+                                    scrollZoom=False,
+                                    showTips=False,
+                                    showAxisDragHandles=False,
+                                    doubleClick=False,
+                                    displayModeBar=False
+                                ))),
+                            dbc.Col(dcc.Graph(
+                                id='b2b-chart',
+                                className='graph',
+                                figure=map_barCharts.get_empty_figure('b2bchart'),
+                                config=dict(
+                                    scrollZoom=False,
+                                    showTips=False,
+                                    showAxisDragHandles=False,
+                                    doubleClick=False,
+                                    displayModeBar=False
+                                )))
+                        ]),
                         html.Br(),
                         html.H2("Trends"),
                         html.Hr(),
@@ -158,22 +158,23 @@ app.layout = html.Div(
                             [dbc.Col(dash_components.generate_vis2(data.getDataVis2DataFrame()))]
                         ),
                         html.Br(),
+                        dbc.Row(explainVis2),
                         html.Br(),
 
-                            dbc.Row(dcc.Graph(
-                                            figure=ClusteredbarChart,
-                                            config=dict(
-                                                scrollZoom=False,
-                                                showTips=False,
-                                                showAxisDragHandles=False,
-                                                doubleClick=False,
-                                                displayModeBar=False
-                                                ),
-                                            className='graph',
-                                            id='clustBar-chart'
-                                            )),
-                            dbc.Row(explainClustBar),
-                            
+                        dbc.Row(dcc.Graph(
+                            figure=ClusteredbarChart,
+                            config=dict(
+                                scrollZoom=False,
+                                showTips=False,
+                                showAxisDragHandles=False,
+                                doubleClick=False,
+                                displayModeBar=False
+                            ),
+                            className='graph',
+                            id='clustBar-chart'
+                        )),
+                        html.Br(),
+                        dbc.Row(explainClustBar),
 
                         html.Br(),
                         html.H2("Vaccinations"),
@@ -200,8 +201,8 @@ app.layout = html.Div(
                                                        displayModeBar=False))),
                                  dbc.Col([dbc.Row(init4b),
                                           dbc.Row(dcc.Dropdown(id="dropdown",
-                                                  options=VaccList,
-                                                  value=VaccList[0]["value"]))])]
+                                                               options=VaccList,
+                                                               value=VaccList[0]["value"]))])]
                                 ),
                         dbc.Row(comments4b)
                     ],
@@ -227,19 +228,18 @@ def update_output(value):
 @app.callback(
     [Output('bar-chart', 'figure'),
      Output('b2b-chart', 'figure')],
-    [Input('display-selected-values', 'clickData'), 
-     Input('map-dropdown', 'value')] 
+    [Input('display-selected-values', 'clickData'),
+     Input('map-dropdown', 'value')]
 )
 def map_clicked(clickData, value):
-
     if clickData is None:
         b2b_figure = map_barCharts.get_empty_figure('b2bchart')
         bar_figure = map_barCharts.get_empty_figure('barchart')
         return bar_figure, b2b_figure
-    
+
     selectCategory = value
     country = clickData['points'][0]['hovertext']
-    
+
     sorted_df, top_bottom_data = data.top_bottom(bardata, selectCategory)
     top_bottom_country, clickedCountry = data.insert_country(sorted_df, top_bottom_data, country)
     bar_figure = map_barCharts.draw_barchart(top_bottom_country, selectCategory, clickedCountry)
