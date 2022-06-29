@@ -3,11 +3,11 @@ from dash import html
 
 def descrptionViz1():
     description = [html.P(children=[    
-        "The map shows the mortality rate of children under 5 years for each country (The darker the color, the higher the rate).",
-        "For the mortality rate in other age categories, number of death or annual percentage of reduction in the mortality rate,",
-        "please select an option from the drop-down menu.",
-        "For further information, click on a country and a horizontal bar chart will be shown:",
-        "It provide information about the countries with the five highest and five lowest mortality as well as the rank of the clicked country.",
+        "The map shows the mortality rate of children under 5 years for each country (The darker the color, the higher the rate). ",
+        "For the mortality rate in other age categories, number of death or annual percentage of reduction in the mortality rate, ",
+        "please select an option from the drop-down menu. ",
+        "For further information, click on a country and a horizontal bar chart will be shown: ",
+        "It provide information about the countries with the five highest and five lowest mortality as well as the rank of the clicked country. ",
         "In case of Mortality Rate (under five), a back-to-back chart will also be provided to show mortality per gender." ],
         style={"font-size": "16px"}
     )]
