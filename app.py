@@ -117,6 +117,7 @@ app.layout = html.Div(
                         dbc.Row(explainVis1),
                         html.Br(),
                         dbc.Row([dcc.Graph(id='display-selected-values')]),
+                        html.Br(),
                         dbc.Row(explainReductionRate),
                         dbc.Row([
                             dbc.Col(dcc.Graph(
@@ -148,15 +149,13 @@ app.layout = html.Div(
                         html.Br(),
                         dbc.Row([
                             dbc.Col(dash_components.generate_country_dropdown(data.getCountriesDataVis2()), width=3),
-                            # dbc.Col(dash_components.generate_info_panel2(), width={"size": 3, "offset": 1})
+                            dbc.Col(dash_components.generate_info_panel2(), width={"size": 3, "offset": 1})
                         ]
                         ),
-                        html.Br(),
                         dbc.Row(explainVis2),
                         html.Br(),
                         dbc.Row(
-                            [dbc.Col(dash_components.generate_vis2(data.getDataVis2DataFrame())),
-                             dbc.Col(dash_components.generate_info_panel2())]
+                            [dbc.Col(dash_components.generate_vis2(data.getDataVis2DataFrame()))]
                         ),
                         html.Br(),
 
