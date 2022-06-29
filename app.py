@@ -218,7 +218,6 @@ def update_output(value):
     fig = choropleth_map.get_map(df, value, VarList)
     return fig
 
-
 # display bar charts when a country is clicked 
 # or drop down menu selection changed
 @app.callback(
@@ -233,16 +232,24 @@ def map_clicked(clickData, value):
         bar_figure = map_barCharts.get_empty_figure('barchart')
         return bar_figure, b2b_figure
 
-    selectCategory = value
-    country = clickData['points'][0]['hovertext']
-
+    selectCategory = value     #get value of selection from drop-down menu 
+    country = clickData['points'][0]['hovertext']     #get name of clicked country  
+    
+    #construct the dataframe containing top 5 & bottom 5 countries
+    #then add the clicked country to the dataframe
     sorted_df, top_bottom_data = data.top_bottom(bardata, selectCategory)
     top_bottom_country, clickedCountry = data.insert_country(sorted_df, top_bottom_data, country)
-    bar_figure = map_barCharts.draw_barchart(top_bottom_country, selectCategory, clickedCountry)
-    b2b_figure = map_barCharts.get_empty_figure('b2bchart')
+    
+    #plot horizontal bar chart for selected category
+    #plot back-to-back chart only if selected category is Mortality Rate (under 5)
+    bar_figure = map_barCharts.draw_barchart(top_bottom_country, selectCategory, clickedCountry) 
     if selectCategory == 'Under-five mortality rate 2019':
         b2b_figure = map_barCharts.draw_b2bchart(top_bottom_country, clickedCountry)
+    else:
+        b2b_figure = map_barCharts.get_empty_figure('b2bchart')   
+        
     return bar_figure, b2b_figure
+
 
 
 @app.callback([Output('scatter', 'figure')],
@@ -320,3 +327,6 @@ def countrySelect(value):
 # Run the server
 if __name__ == "__main__":
     app.run_server()
+
+
+
