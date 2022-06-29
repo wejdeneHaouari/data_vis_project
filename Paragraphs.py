@@ -35,7 +35,7 @@ def descriptionViz4a():
         "²) First dose of vaccine administered. ",
         html.Br(),
         "³) Vaccination at birth."],
-        style={"font-size": "16px"})
+        style={"font-size": "14px"})
     ]
     return description
 
@@ -47,7 +47,7 @@ def descriptionViz4b():
         "²) First dose of vaccine administered. ",
         html.Br(),
         "³) Vaccination at birth."],
-        style={"font-size": "16px"})
+        style={"font-size": "14px"})
     ]
     return description
 
@@ -117,6 +117,6 @@ def ExplainMapReductionRate():
             "* Annual reduction rate (ARR) defined as ARR=100*(ln(V_t2/V_t1)/(t1-t2)), where t1=2000 and t2=2019 and "
             "V_t1 (V_t2) are the values of 2000 (2019).",
             html.Br()],
-            style={"font-size": "12px"})
+            style={"font-size": "14px"})
     ]
     return explanation
