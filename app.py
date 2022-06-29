@@ -52,6 +52,7 @@ init4b = Paragraphs.InitViz4b()
 clusteredBarData = data.getDataBarChart()
 ClusteredbarChart = clustered_barchart.draw_clusteredBarchart(clusteredBarData)
 explainClustBar = Paragraphs.ExplainClustBarViz()
+explainVis1 = Paragraphs.descrptionViz1()
 explainVis2 = Paragraphs.ExplainVis2()
 introduction = Paragraphs.introduction()
 
@@ -112,6 +113,7 @@ app.layout = html.Div(
                                                  value=VarList[0]["value"]),
                                     width=6)]),
                         html.Br(),
+                        dbc.Row(explainVis1),
                         html.Br(),
                         dbc.Row([dcc.Graph(id='display-selected-values')]),
                         dbc.Row([
