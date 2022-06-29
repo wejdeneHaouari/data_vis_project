@@ -62,7 +62,7 @@ def get_selected_group_label(selectedGroup, top_bottom_country):
     Get the label of the selected group from the drop-down menu
     Args:
         selectedGroup: the selected group
-        top_bottom_country: 
+        top_bottom_country: the current dataframe to get all columns
 
     Returns:
         the label of the slected group
@@ -80,7 +80,7 @@ def top_bottom(my_df, selectCategory):
         selectCategory: the selected categpry
 
     Returns:
-        the sorted data frame and the output list (top5, bottom  5countries)
+        the complete sorted data frame and a dataframe containing only (top5, bottom 5 countries)
     """
     my_df = my_df.dropna(axis=0)
     my_df['Under-five mortality rate 2019, male'] = my_df['Under-five mortality rate 2019, male'].astype(int)
