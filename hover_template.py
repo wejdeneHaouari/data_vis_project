@@ -39,6 +39,19 @@ def map_marker_hover_template(name):
     return hovertemp
 
 
+def get_barChart_template():
+    template = '<b>Country</b> : %{y}<br><b>Mortality Rate</b> : %{x}<extra></extra>'        
+    return template
+
+def get_b2bChart_template(gender):
+    if gender=='Male':
+        template = '<b>Country</b> : %{y}<br><b>Male Mortality Rate</b> : %{x}<extra></extra>'
+    elif gender == 'Female':   
+        template = '<b>Country</b> : %{y}<br><b>Female Mortality Rate</b> : %{customdata}<extra></extra>'
+                    
+    return template
+    
+
 def vis2Hover():
     labelStyle = '<span style="font-family: Roboto Slab; font-weight:bold">'  # margin-left: 30px
     valueStyle = '<span style="font-family: Roboto; font-weight:regular">'
@@ -49,7 +62,11 @@ def vis2Hover():
     ])
     return hovertemp
 
-
+def get_clustBarChart_template(year):
+    template = '<b>Region</b> : %{y}<br><b>Year</b> : ' + year + '<br><b>Mortality Rate</b> : %{x}<extra></extra>'
+    return template
+              
+    return template
 def get_heatmap_template():
     template = '%{x} vaccination rate in<br>%{y}: %{customdata} <extra></extra>'
     return template
