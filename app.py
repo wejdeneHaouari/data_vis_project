@@ -104,7 +104,7 @@ app.layout = html.Div(
                     children=[
                         html.Br(),
                         html.H2("Child Mortality World Wide"),
-                        html.Hr(),
+                        html.Hr(style={"background-color":"gray", "height":"2px"}),
                         html.Br(),
                         dbc.Row([
                             dbc.Col(dcc.Dropdown(id='map-dropdown',
@@ -140,7 +140,7 @@ app.layout = html.Div(
                         ]),
                         html.Br(),
                         html.H2("Trends"),
-                        html.Hr(),
+                        html.Hr(style={"background-color":"gray", "height":"2px"}),
                         html.Br(),
                         dbc.Row([
                             dbc.Col(dash_components.generate_country_dropdown(data.getCountriesDataVis2()), width=3),
@@ -172,7 +172,7 @@ app.layout = html.Div(
 
                         html.Br(),
                         html.H2("Vaccinations"),
-                        html.Hr(),
+                        html.Hr(style={"background-color":"gray", "height":"2px"}),
                         html.Br(),
                         dbc.Row(
                             [dbc.Col(dcc.Graph(figure=heatmap, id='heatmap',
