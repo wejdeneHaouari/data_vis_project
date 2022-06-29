@@ -1,5 +1,16 @@
 from dash import html
 
+def ExplainClustBarViz():
+    explanation = [
+        html.P(children=[
+            "In general, we see that the mortality rate of children under 5 years have been decreasing in all regions since 1990.",
+            html.Br(),
+            "At a first glance, you see that Western Europen and North America have the lowest mortality rate among all regions. However, North America has a little bit higher mortality rate (8 in 2000 and 6 in 2019) compared to Western Europe (6 in 2000 and 4 in 2019).",
+            html.Br(),
+            "In addition, West and Central Africa region has the highest mortality rate in all years."],
+               style={"font-size": "16px"})
+                    ]           
+    return explanation
 
 def descriptionViz4a():
     description = [html.P(children=[
