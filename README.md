@@ -1,8 +1,8 @@
-# dash-clinical-analytics
+# unicef state of the children
 
 ## About this app
 
-This dashboard allows you to explore clinic patient volume by time of the day, waiting time and care score. Drill down into high-volume days to view how the busy environment may have affected patient experience.
+This dashboard allows you to explore the mortality rates of children by different age groups, countries and years, and on top of this also the vaccination status!
 
 ## Requirements
 
