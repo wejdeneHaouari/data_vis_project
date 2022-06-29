@@ -102,7 +102,7 @@ def introduction():
             "hidden hunger which lessens the ability of millions of children to grow and develop healthily - leading to "
             "their death. The following charts show mortality and vaccination rates of children around the world.",
             html.Br(),
-            "Mortality rate is calculated per 1000 people.",
+            "Mortality rate is calculated per 1000 live births.",
             html.Br(),
         ],
 
