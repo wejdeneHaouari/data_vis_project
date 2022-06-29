@@ -14,9 +14,8 @@ import scatterplot
 import heatmapfig
 import Paragraphs
 import clustered_barchart
-import preprocess
 import choropleth_map
-import bar_charts
+import map_barCharts
 
 
 external_stylesheets = [dbc.themes.BOOTSTRAP]
@@ -34,8 +33,8 @@ server = app.server
 app.config.suppress_callback_exceptions = True
 
 mapdata = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
-VarList = preprocess.variables(mapdata)
-my_data = pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
+VarList = data.variables(mapdata)
+bardata = pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
 
 data_path = "data/UNICEF_Data_4.xlsx"
 regional = data.getData(data_path, "Regions")
@@ -51,9 +50,9 @@ comments4b = Paragraphs.descriptionViz4b()
 explain4a = Paragraphs.ExplainViz4a()
 init4b = Paragraphs.InitViz4b()
 
-barChartData = data.getDataBarChart()
-
-barchart = clustered_barchart.draw_barchart(barChartData)
+clusteredBarData = data.getDataBarChart()
+ClusteredbarChart = clustered_barchart.draw_clusteredBarchart(clusteredBarData)
+explainClustBar=Paragraphs.ExplainClustBarViz()
 
 
 def description_card():
@@ -125,7 +124,7 @@ app.layout = html.Div(
                                     dbc.Col(dcc.Graph(
                                                     id='bar-chart',
                                                     className='graph',
-                                                    figure=bar_charts.get_empty_figure('barchart'),
+                                                    figure=map_barCharts.get_empty_figure('barchart'),
                                                     config=dict(
                                                         scrollZoom=False,
                                                         showTips=False,
@@ -136,7 +135,7 @@ app.layout = html.Div(
                                     dbc.Col(dcc.Graph(
                                                     id='b2b-chart',
                                                     className='graph',
-                                                    figure=bar_charts.get_empty_figure('b2bchart'),
+                                                    figure=map_barCharts.get_empty_figure('b2bchart'),
                                                     config=dict(
                                                         scrollZoom=False,
                                                         showTips=False,
@@ -161,18 +160,20 @@ app.layout = html.Div(
                         html.Br(),
                         html.Br(),
                         dbc.Row([
-                            dcc.Graph(
-                                figure=barchart,
-                                config=dict(
-                                    scrollZoom=False,
-                                    showTips=False,
-                                    showAxisDragHandles=False,
-                                    doubleClick=False,
-                                    displayModeBar=False
-                                ),
-                                className='graph',
-                                id='line-chart'
-                            )
+                            dbc.Col(dcc.Graph(
+                                            figure=ClusteredbarChart,
+                                            config=dict(
+                                                scrollZoom=False,
+                                                showTips=False,
+                                                showAxisDragHandles=False,
+                                                doubleClick=False,
+                                                displayModeBar=False
+                                                ),
+                                            className='graph',
+                                            id='clustBar-chart'
+                                            )),
+                            dbc.Col(explainClustBar)
+                            
                         ]),
                         html.Br(),
                         html.H2("Vaccinations"),
@@ -215,8 +216,8 @@ app.layout = html.Div(
 @app.callback(Output('display-selected-values', 'figure'),
               [Input('map-dropdown', 'value')])
 def update_output(value):
-    data = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
-    df = preprocess.to_float(data, value)
+    df = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
+    df = data.to_float(df, value)
     fig = choropleth_map.get_map(df, value, VarList)
     return fig
 
@@ -232,20 +233,20 @@ def update_output(value):
 def map_clicked(clickData, value):
 
     if clickData is None:
-        b2b_figure = bar_charts.get_empty_figure('b2bchart')
-        figure = bar_charts.get_empty_figure('barchart')
-        return figure, b2b_figure
-    columnb = value
+        b2b_figure = map_barCharts.get_empty_figure('b2bchart')
+        bar_figure = map_barCharts.get_empty_figure('barchart')
+        return bar_figure, b2b_figure
+    
+    selectCategory = value
     country = clickData['points'][0]['hovertext']
-    sorted_df, top_bottom_data = preprocess.top_bottom(my_data, columnb)
-    top_bottom_country, clickedCountry = bar_charts.insert_country(sorted_df, top_bottom_data, country)
-    figure = bar_charts.draw_barchart(top_bottom_country, columnb,
-                                      clickedCountry)
-    b2b_figure = bar_charts.get_empty_figure('b2bchart')
-    if columnb == 'Under-five mortality rate 2019,both':
-        b2b_figure = bar_charts.draw_b2bchart(top_bottom_country,
-                                              clickedCountry)
-    return figure, b2b_figure
+    
+    sorted_df, top_bottom_data = data.top_bottom(bardata, selectCategory)
+    top_bottom_country, clickedCountry = data.insert_country(sorted_df, top_bottom_data, country)
+    bar_figure = map_barCharts.draw_barchart(top_bottom_country, selectCategory, clickedCountry)
+    b2b_figure = map_barCharts.get_empty_figure('b2bchart')
+    if selectCategory == 'Under-five mortality rate 2019,both':
+        b2b_figure = map_barCharts.draw_b2bchart(top_bottom_country, clickedCountry)
+    return bar_figure, b2b_figure
 
 
 @app.callback([Output('scatter', 'figure')],
