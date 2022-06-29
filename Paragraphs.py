@@ -86,8 +86,9 @@ def InitViz4b():
 def ExplainVis2():
     explanation = [
         html.P(children=[
-            "We can notice that in the majority of the countries most of the deaths are for under five age groups. To "
-            "exploit how mortality rates change with age select a country from the dropdown menu or clique on a "
+            "We notice that most of countries the number of death for between 5 and 14 age group is inferior to under "
+            "five age  group. To "
+            "exploit how mortality rates change with age select a country from the dropdown menu or click on a "
             "marker from the visualization.",
             html.Br()],
             style={"font-size": "16px"})

@@ -31,9 +31,9 @@ app.title = "The State of the World’s Children- UNICEF"
 server = app.server
 app.config.suppress_callback_exceptions = True
 
-mapdata = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
+mapdata = pd.read_csv('./data/UNICEF_Data_Imp.csv')
 VarList = data.variables(mapdata)
-bardata = pd.read_csv('./assets/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
+bardata = pd.read_csv('./data/UNICEF_Data_Imp.csv', index_col=0, thousands=',')
 
 data_path = "data/UNICEF_Data_4.xlsx"
 regional = data.getData(data_path, "Regions")
@@ -55,6 +55,7 @@ explainClustBar = Paragraphs.ExplainClustBarViz()
 explainVis1 = Paragraphs.descrptionViz1()
 explainVis2 = Paragraphs.ExplainVis2()
 introduction = Paragraphs.introduction()
+
 
 def description_card():
     """
@@ -105,7 +106,7 @@ app.layout = html.Div(
                     children=[
                         html.Br(),
                         html.H2("Child Mortality World Wide"),
-                        html.Hr(style={"background-color":"gray", "height":"2px"}),
+                        html.Hr(style={"background-color": "gray", "height": "2px"}),
                         html.Br(),
                         dbc.Row([
                             dbc.Col(dcc.Dropdown(id='map-dropdown',
@@ -142,19 +143,18 @@ app.layout = html.Div(
                         ]),
                         html.Br(),
                         html.H2("Trends"),
-                        html.Hr(style={"background-color":"gray", "height":"2px"}),
+                        html.Hr(style={"background-color": "gray", "height": "2px"}),
                         html.Br(),
                         dbc.Row([
                             dbc.Col(dash_components.generate_country_dropdown(data.getCountriesDataVis2()), width=3),
                             dbc.Col(dash_components.generate_info_panel2(), width={"size": 3, "offset": 1})
                         ]
                         ),
-
+                        dbc.Row(explainVis2),
+                        html.Br(),
                         dbc.Row(
                             [dbc.Col(dash_components.generate_vis2(data.getDataVis2DataFrame()))]
                         ),
-                        html.Br(),
-                        dbc.Row(explainVis2),
                         html.Br(),
 
                         dbc.Row(dcc.Graph(
@@ -174,7 +174,7 @@ app.layout = html.Div(
 
                         html.Br(),
                         html.H2("Vaccinations"),
-                        html.Hr(style={"background-color":"gray", "height":"2px"}),
+                        html.Hr(style={"background-color": "gray", "height": "2px"}),
                         html.Br(),
                         dbc.Row(
                             [dbc.Col(dcc.Graph(figure=heatmap, id='heatmap',
@@ -213,12 +213,13 @@ app.layout = html.Div(
 @app.callback(Output('display-selected-values', 'figure'),
               [Input('map-dropdown', 'value')])
 def update_output(value):
-    df = pd.read_csv('./assets/UNICEF_Data_Imp.csv')
+    df = pd.read_csv('./data/UNICEF_Data_Imp.csv')
     df = data.to_float(df, value)
     fig = choropleth_map.get_map(df, value, VarList)
     return fig
 
-# display bar charts when a country is clicked 
+
+# display bar charts when a country is clicked
 # or drop down menu selection changed
 @app.callback(
     [Output('bar-chart', 'figure'),
@@ -232,24 +233,23 @@ def map_clicked(clickData, value):
         bar_figure = map_barCharts.get_empty_figure('barchart')
         return bar_figure, b2b_figure
 
-    selectCategory = value     #get value of selection from drop-down menu 
-    country = clickData['points'][0]['hovertext']     #get name of clicked country  
-    
-    #construct the dataframe containing top 5 & bottom 5 countries
-    #then add the clicked country to the dataframe
+    selectCategory = value  # get value of selection from drop-down menu
+    country = clickData['points'][0]['hovertext']  # get name of clicked country
+
+    # construct the dataframe containing top 5 & bottom 5 countries
+    # then add the clicked country to the dataframe
     sorted_df, top_bottom_data = data.top_bottom(bardata, selectCategory)
     top_bottom_country, clickedCountry = data.insert_country(sorted_df, top_bottom_data, country)
-    
-    #plot horizontal bar chart for selected category
-    #plot back-to-back chart only if selected category is Mortality Rate (under 5)
-    bar_figure = map_barCharts.draw_barchart(top_bottom_country, selectCategory, clickedCountry) 
+
+    # plot horizontal bar chart for selected category
+    # plot back-to-back chart only if selected category is Mortality Rate (under 5)
+    bar_figure = map_barCharts.draw_barchart(top_bottom_country, selectCategory, clickedCountry)
     if selectCategory == 'Under-five mortality rate 2019':
         b2b_figure = map_barCharts.draw_b2bchart(top_bottom_country, clickedCountry)
     else:
-        b2b_figure = map_barCharts.get_empty_figure('b2bchart')   
-        
-    return bar_figure, b2b_figure
+        b2b_figure = map_barCharts.get_empty_figure('b2bchart')
 
+    return bar_figure, b2b_figure
 
 
 @app.callback([Output('scatter', 'figure')],
@@ -327,6 +327,3 @@ def countrySelect(value):
 # Run the server
 if __name__ == "__main__":
     app.run_server()
-
-
-
