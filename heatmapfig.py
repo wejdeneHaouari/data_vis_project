@@ -65,7 +65,7 @@ def initScatter(data, Vacc, VaccList):
                      ticks="outside",
                      ticklen=5,
                      tickcolor="darkgrey") 
-    fig.update_xaxes(title_text="mortality rate of children aged 5 to 14 (%)",
+    fig.update_xaxes(title_text="mortality rate of children aged 5 to 14 (per 1000)",
                      title_font_family="Arial",
                      title_font_size=14,
                      side="top",

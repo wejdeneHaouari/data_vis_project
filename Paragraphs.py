@@ -70,7 +70,8 @@ def InitViz4b():
         html.P(children=[
             "One might ask whether the vaccination rate influences the mortality rate of the children to such an "
             "extent that it would be obvious from comparing mortality rate and vaccination rate directly. ",
-            "This is why the figure on the left shows the mortality rate of children aged 5 to 14 over the vaccination rate. For clarity, just one vaccine is displayed at a time.",
+            "This is why the figure on the left shows the mortality rate of children aged 5 to 14 over the "
+            "vaccination rate. For clarity, just one vaccine is displayed at a time.",
             html.Br(),
             "What do we see? While Niger has the highest mortality rate, it is on average not the country with the "
             "lowest vaccination rates. Nevertheless, most countries with vaccination rates close to 100% are indeed "
@@ -99,8 +100,8 @@ def introduction():
     explanation = [
         html.P(children=[
             "According to UNICEF, at least 1 in 3 children under five is under/overweight, and 1 in 2 experience "
-            "hidden hunger which lessens the ability of millions of children to grow and develop healthily - leading to "
-            "their death. The following charts show mortality and vaccination rates of children around the world.",
+            "hidden hunger which lessens the ability of millions of children to grow and develop healthily - leading "
+            "to their death. The following charts show mortality and vaccination rates of children around the world.",
             html.Br(),
             "Mortality rate is calculated per 1000 live births.",
             html.Br(),

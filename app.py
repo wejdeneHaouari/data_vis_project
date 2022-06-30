@@ -8,7 +8,6 @@ import pandas as pd
 from datetime import datetime as dt
 import dash_components
 import data
-import callback
 import dash_bootstrap_components as dbc
 import scatterplot
 import heatmapfig
@@ -59,10 +58,6 @@ explainReductionRate = Paragraphs.ExplainMapReductionRate()
 
 
 def description_card():
-    """
-
-    :return: A Div containing dashboard title & descriptions.
-    """
     return html.Div(
         id="description-card",
         children=[
@@ -264,6 +259,7 @@ def display(DD):  # noqa : E501 pylint: disable=unused-argument too-many-argumen
     return [scatter]
 
 
+# update the scatter matrix and info panel when a country is clicked
 @app.callback([Output('group1', 'children'),
                Output('group2', 'children'),
                Output('group3', 'children'),
@@ -279,7 +275,7 @@ def display(DD):  # noqa : E501 pylint: disable=unused-argument too-many-argumen
                [Output('country-select', 'value')]],
               [Input('graph', 'clickData'),
                Input('country-select', 'value')])
-def callback_a(clicks_fig, value):
+def countrySelected(clicks_fig, value):
     ctx = dash.callback_context
     triggered_id = ctx.triggered_id
     # clique on the graph
@@ -299,7 +295,7 @@ def graphClique():
             'visibility': 'hidden'}, scatterplot.add_scatter_matrix(data.getDataVis2DataFrame()), [None]
     if ctx.triggered[0]['prop_id'].split('.')[0] == 'graph':
         country = ctx.triggered[0]['value']['points'][0]['customdata']
-        country, ageGroup, rates = callback.info_details(country)
+        country, ageGroup, rates = info_details(country)
         rate1, rate2, rate3, rate4, rate5 = rates
         group1, group2, group3, group4, group5 = ageGroup
         return group1, group2, group3, group4, group5, rate1, rate2, rate3, rate4, rate5, {
@@ -307,6 +303,18 @@ def graphClique():
     return None, None, None, None, None, None, None, None, None, None, {
         'visibility': 'hidden'}, scatterplot.add_scatter_matrix(data.getDataVis2DataFrame()), [None]
 
+
+def info_details(country):
+    dataPerCountry = data.getDataPerCountry(country)
+    rates = dataPerCountry.iloc[[0]].values.tolist()[0][2:]
+    ageGroup = list(dataPerCountry.columns)[2:]
+    # order based on mortality rate
+    zipped_lists = zip(rates, ageGroup)
+    sorted_pairs = sorted(zipped_lists, reverse=True)
+    tuples = zip(*sorted_pairs)
+    rates, ageGroup = [list(tuple) for tuple in tuples]
+
+    return country, ageGroup, rates
 
 def countrySelect(value):
     if value:
@@ -330,4 +338,4 @@ def countrySelect(value):
 
 # Run the server
 if __name__ == "__main__":
-    app.run_server()
+    app.run_server(debug=True)
