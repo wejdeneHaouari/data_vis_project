@@ -15,7 +15,7 @@ and open your terminal/command prompt in the root folder.
 
 ```
 git clone https://github.com/wejdeneHaouari/data_vis_project
-data_vis_project
+cd data_vis_project
 python3 -m virtualenv venv
 
 ```
