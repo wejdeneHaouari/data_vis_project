@@ -37,11 +37,12 @@ def to_float(my_df, column):
 
 
 def variables(my_df):
-    """Get the variables from the input dtaaframe
-    Args:
-        my_df: the input dtatframe
-    Returns:
-        The list of variables
+    """
+        Get the variables from the input dtaaframe
+        Args:
+            my_df: the input dtatframe
+        Returns:
+            The list of variables
     """
     my_df.drop(columns=["Unnamed: 0", "Country", "country_code",
                         "Under-five mortality rate 2019, male",
@@ -81,13 +82,14 @@ def get_selected_group_label(selectedGroup, top_bottom_country):
 
 
 def top_bottom(my_df, selectCategory):
-    """this function gets the top 5 countries (highest mortality) and bottom 5 countries (lowest mortality) for the selected category
-    Args:
-        my_df: the input dataframe
-        selectCategory: the selected categpry
+    """
+        This function gets the top 5 countries (highest mortality) and bottom 5 countries (lowest mortality) for the selected category
+        Args:
+            my_df: the input dataframe
+            selectCategory: the selected categpry
 
-    Returns:
-        the complete sorted data frame and a dataframe containing only (top5, bottom 5 countries)
+        Returns:
+            the complete sorted data frame and a dataframe containing only (top5, bottom 5 countries)
     """
     my_df = my_df.dropna(axis=0)
     my_df['Under-five mortality rate 2019, male'] = my_df['Under-five mortality rate 2019, male'].astype(int)
@@ -111,24 +113,13 @@ def top_bottom(my_df, selectCategory):
     return sorted_df, top_bottom_data
 
 
-def getDataVis2DataFrame():
-    return dataframeVis2
-
-
-def getCountriesDataVis2():
-    return dataframeVis2['country']
-
-
-def getDataPerCountry(country):
-    return dataframeVis2[dataframeVis2['country'] == country]
-
-
 def getData(path, loc):
-    """gets the vaccination data for regional or country resolution
-    Args:
-        path: the path to the file
-        loc: location f the sheet
-    Returns:
+    """
+        Gets the vaccination data for regional or country resolution
+        Args:
+            path: the path to the file
+            loc: location f the sheet
+        Returns:
         the needed data frame
     """
     Sheet = "DataViz4_" + loc
@@ -146,11 +137,14 @@ def getData(path, loc):
 
 
 def insert_country(sorted_df, top_bottom_data, country):
-    """adding the selected country to the chart data
-    Args:
-        sorted_df: _description_
-        top_bottom_data (_type_): _description_
-        country (_type_): _description_
+    """
+        Adding the selected country to the chart data
+        Args:
+            sorted_df: th sorted data frame
+            top_bottom_data: the top 5 and bottom 5 countries
+            country: the selected country
+        Returns:
+            the updated top 5 and bottom 5 countries and the clicked country
     """
     # default order for country if not one of the top 5 or bottom 5
     clickedCountry = 5
@@ -172,11 +166,12 @@ def insert_country(sorted_df, top_bottom_data, country):
 
 
 def Vaccines(df):
-    """Get a dictionary for replacing certain vaccination names
-    Args:
-        df: the input datframe
-    Returns:
-        vaccines names
+    """
+        Get a dictionary for replacing certain vaccination names
+        Args:
+            df: the input datframe
+        Returns:
+            vaccines names
     """
     value = list(df.columns)
     label = pd.Series(value)
@@ -192,3 +187,15 @@ def Vaccines(df):
 
 def getDataBarChart():
     return dataBarChart
+
+
+def getDataVis2DataFrame():
+    return dataframeVis2
+
+
+def getCountriesDataVis2():
+    return dataframeVis2['country']
+
+
+def getDataPerCountry(country):
+    return dataframeVis2[dataframeVis2['country'] == country]

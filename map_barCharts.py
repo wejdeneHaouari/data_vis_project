@@ -15,11 +15,12 @@ import data
 
 
 def get_empty_figure(chart_type):
-    """create empty figure
-    Args:
-        chart_type: the type of the chart
-    Returns:
-        figure
+    """
+        Create empty figure
+        Args:
+            chart_type: the type of the chart
+        Returns:
+            figure
     """
     fig = go.Figure()
     fig.update_xaxes(showgrid=False, visible=False, showticklabels=False)
@@ -36,15 +37,14 @@ def get_empty_figure(chart_type):
 
 
 def draw_barchart(top_bottom_country, column, clickedCountry):
-    """Draw the bar chart
-
+    """
+    Draw the bar chart
     Args:
         top_bottom_country: the countries list
         column: th column from the data sheet
         clickedCountry (_type_): _description_
-
     Returns:
-        figure 
+        figure
     """
     colors = ['lightslategray'] * len(top_bottom_country)  # initialize all bars as grey
     colors[clickedCountry] = '#660000'  # only clicked country bar is red
@@ -69,18 +69,16 @@ def draw_barchart(top_bottom_country, column, clickedCountry):
 
 def draw_b2bchart(top_bottom_country, clickedCountry):
     '''
-    since there is no direct option to draw back-to-back chart
+    Since there is no direct option to draw back-to-back chart
     a horizontal bar chart is drawn where
     male is plot on positive xaxis and female on negative xaxis
     in order to avoid displaying negative data for female:
     for the tooltip, customdata is used and data read directly from column (instead of %{x})
     for the xaxis ticks, negative ticks converted to positive
-
     Args:
         top_bottom_country: the countries list
         column: th column from the data sheet
         clickedCountry: the clicked country on the map 
-    
     Returns:
         figure
     '''

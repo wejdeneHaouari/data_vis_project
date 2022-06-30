@@ -28,4 +28,3 @@ def get_map(my_df, variable, VarList):
                                projection_type='equirectangular'))
     fig.update_layout(margin={"r": 40, "t": 40, "l": 40, "b": 40})
     return fig
-
