@@ -4,6 +4,7 @@
 
 import plotly.express as px
 import hover_template
+import data
 
 
 def get_map(my_df, variable, VarList):
@@ -14,7 +15,7 @@ def get_map(my_df, variable, VarList):
         Returns:
             The generated figure
     '''
-    variable_to_print = getName(variable, VarList)
+    variable_to_print = data.getName(variable, VarList)
     fig = px.choropleth(my_df, locations="country_code",
                         color=variable,
                         hover_name="Country",
@@ -28,9 +29,3 @@ def get_map(my_df, variable, VarList):
     fig.update_layout(margin={"r": 40, "t": 40, "l": 40, "b": 40})
     return fig
 
-
-def getName(variable, VarList):
-    for i in VarList:
-        if i["value"] == variable:
-            Vname = i["label"]
-    return Vname

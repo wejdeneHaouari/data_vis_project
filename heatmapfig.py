@@ -1,5 +1,6 @@
 import plotly.express as px
 import hover_template
+import data
 
 
 def getHeatmap(data):
@@ -97,7 +98,7 @@ def AnnotateVaccineName(figure, Vacc, VaccList):
         bordercolor="#630000",
         align="right",
         valign="bottom",
-        text="<b>"+ getName(Vacc, VaccList) +"</b>",
+        text="<b>"+ data.getName(Vacc, VaccList) +"</b>",
         font=dict(family="Arial Rounded MT Bold, sans-serif", size=18, color="black"),
         showarrow=False,
         xref="paper",

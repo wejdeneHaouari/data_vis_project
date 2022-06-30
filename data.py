@@ -12,6 +12,13 @@ dataframeVis2 = dataframeVis2.sort_values('country').reset_index()
 dataBarChart = pd.read_csv('./data/Regions.csv')
 
 
+def getName(variable, VarList):
+    for i in VarList:
+        if i["value"] == variable:
+            Vname = i["label"]
+    return Vname
+
+
 def to_float(my_df, column):
     '''
         Convert columns to float
