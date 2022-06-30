@@ -82,13 +82,6 @@ def initScatter(data, Vacc, VaccList):
     return fig
 
 
-def getName(Vacc, VaccList):
-    for i in VaccList:
-        if i["value"] == Vacc:
-            Vname = i["label"]
-    return Vname
-
-
 def AnnotateVaccineName(figure, Vacc, VaccList):
     figure.update_layout(annotations=[dict(
         x=0.995,
@@ -98,7 +91,7 @@ def AnnotateVaccineName(figure, Vacc, VaccList):
         bordercolor="#630000",
         align="right",
         valign="bottom",
-        text="<b>"+ data.getName(Vacc, VaccList) +"</b>",
+        text="<b>" + data.getName(Vacc, VaccList) + "</b>",
         font=dict(family="Arial Rounded MT Bold, sans-serif", size=18, color="black"),
         showarrow=False,
         xref="paper",
